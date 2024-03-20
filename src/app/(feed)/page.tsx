@@ -2,7 +2,7 @@ import { db } from "@/lib/db";
 import { CURATION_ABI } from "@/lib/abi";
 import { publicOptimismClient } from "@/lib/optimism";
 import { curations, dump } from "@/lib/db/schema";
-import { parseAbiItem, type Hex, decodeEventLog } from "viem";
+import { type Hex, decodeEventLog } from "viem";
 
 export default async function Home() {
   publicOptimismClient.watchContractEvent({
@@ -35,14 +35,10 @@ export default async function Home() {
       });
     },
   });
-  // // @ts-ignore
-  // BigInt.prototype["toJSON"] = function () {
-  //   return this.toString();
-  // };
 
   return (
     <div>
-      <pre>Hello from supabase!</pre>
+      <pre hidden>Secretly Running Indexer...</pre>
     </div>
   );
 }

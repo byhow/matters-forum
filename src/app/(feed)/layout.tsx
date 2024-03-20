@@ -1,35 +1,30 @@
 import { Suspense } from "react";
 import Link from "next/link";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 // import { AuthNav, SubmitLink, ThreadsLink } from "./auth-nav";
 
 export const metadata = {
   openGraph: {
-    title: "Next AI News",
-    url: "https://next-ai-news.vercel.app",
-    siteName: "Next AI News",
-  },
-  twitter: {
-    title: "Next AI News",
-    card: "summary_large_image",
-    site: "@rauchg",
-    creator: "@rauchg",
+    title: "Matters Forum",
+    url: "https://matters-forum.vercel.app",
+    siteName: "Matters Forum",
   },
 };
 
 export default function HNLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="md:px-20 md:py-2 flex flex-col h-screen text-[15px] leading-[18px]">
-      <header className="flex items-center justify-between py-2 md:py-1 px-1 pr-2 bg-[#FF9966] text-sm gap-2">
+      <header className="flex items-center justify-between py-2 md:py-1 px-1 pr-2 bg-green-700 text-sm gap-2">
         <div className="flex items-center">
           <Link prefetch={true} href="/">
             <span className="border border-white p-1 mr-2 text-white w-6 h-6 flex-shrink-0 flex items-center justify-center">
-              <span>N</span>
+              <span>M</span>
             </span>
           </Link>
           <div className="flex flex-col md:flex-row items-start md:items-center">
             <Link prefetch={true} href="/" className="mr-3">
               <h1 className="text-base font-bold leading-tight whitespace-nowrap">
-                Next AI News
+                Matters Forum
               </h1>
             </Link>
             <nav>
@@ -40,10 +35,10 @@ export default function HNLayout({ children }: { children: React.ReactNode }) {
                     className="hover:underline"
                     href="/newest"
                   >
-                    new
+                    newest
                   </Link>
                 </li>
-                <li className="px-1">|</li>
+                {/* <li className="px-1">|</li> */}
                 {/* <li>
                   <Suspense
                     fallback={
@@ -64,40 +59,36 @@ export default function HNLayout({ children }: { children: React.ReactNode }) {
                   <Link
                     prefetch={true}
                     className="hover:underline"
+                    href="/trend"
+                  >
+                    trend
+                  </Link>
+                </li>
+                <li className="px-1">|</li>
+                <li>
+                  <Link
+                    prefetch={true}
+                    className="hover:underline"
                     href="/newcomments"
                   >
                     comments
                   </Link>
                 </li>
-                <li className="px-1">|</li>
-                <li>
-                  <Link
-                    prefetch={true}
-                    className="hover:underline"
-                    href="/show"
-                  >
-                    show
-                  </Link>
-                </li>
-                <li className="px-1">|</li>
-                <li>
-                  <Link prefetch={true} className="hover:underline" href="/ask">
-                    ask
-                  </Link>
-                </li>
-                <li className="px-1">|</li>
-                <li>
-                  <Link
-                    prefetch={true}
-                    className="hover:underline"
-                    href="/jobs"
-                  >
-                    jobs
-                  </Link>
-                </li>
               </ul>
             </nav>
           </div>
+        </div>
+        <div className="items-end">
+          <Suspense fallback={null}>
+            <SignedIn>
+              {/* Mount the UserButton component */}
+              <UserButton />
+            </SignedIn>
+            <SignedOut>
+              {/* Signed out users get sign in button */}
+              <SignInButton />
+            </SignedOut>
+          </Suspense>
         </div>
         {/* <div className="flex flex-col md:flex-row items-end min-w-[30%] md:min-w-[inherit] md:items-center">
           <Suspense fallback={null}>
@@ -111,7 +102,7 @@ export default function HNLayout({ children }: { children: React.ReactNode }) {
       </main>
 
       <footer
-        className="flex flex-col items-center justify-center p-4 border-t-2 border-t-[#FF9966]
+        className="flex flex-col items-center justify-center p-4 border-t-2 border-green-700
               text-black bg-[#f6f6ef]"
       >
         <nav>

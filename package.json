@@ -13,6 +13,7 @@
     "demo": "pnpm ts-node --skip-project src/lib/db/index.ts"
   },
   "dependencies": {
+    "@clerk/nextjs": "^4.29.9",
     "@helia/unixfs": "^3.0.2",
     "@helia/verified-fetch": "^1.2.1",
     "@radix-ui/react-slot": "^1.0.2",
@@ -25,7 +26,6 @@
     "ipfs-unixfs-exporter": "^13.5.0",
     "lucide-react": "^0.359.0",
     "next": "14.1.4",
-    "next-auth": "^4.24.7",
     "postgres": "^3.4.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

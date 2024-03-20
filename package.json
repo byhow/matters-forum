@@ -10,7 +10,7 @@
     "studio": "drizzle-kit studio",
     "migrate": "drizzle-kit push:pg",
     "generate": "drizzle-kit generate:pg",
-    "demo": "pnpm ts-node --skip-project src/lib/db/index.ts"
+    "demo": "pnpm ts-node --skip-project src/lib/optimism.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.29.9",

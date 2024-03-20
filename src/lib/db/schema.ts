@@ -15,8 +15,13 @@ export const curations = pgTable("curations", {
   blockNumber: integer('block_number'),
   toAddress: varchar("to_address", { length: 42 }),
   amount: bigint("amount", { mode: "bigint" }),
-  tokenAddress: varchar("phone", { length: 42 }),
+  tokenAddress: varchar("token_address", { length: 42 }),
   uri: varchar("uri", { length: 256 }),
+}, (t) => {
+  return {
+    blockNumberIndex: index('block_number_index').on(t.blockNumber),
+    toAddressIndex: index('to_address_index').on(t.toAddress)
+  }
 });
 
 export const dump = pgTable("dump", {

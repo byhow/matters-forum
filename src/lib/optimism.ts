@@ -1,6 +1,8 @@
 import { createPublicClient, decodeEventLog, Hex, http, parseAbiItem } from "viem";
 import { optimism } from "viem/chains";
 import { erc20TokenCurationEventSignature, nativeTokenCurationEventSignature, CURATION_ABI } from "./abi";
+import { db } from "./db";
+import { curations } from "./db/schema";
 
 if (!process.env.ALCHEMY_OPTIMISM_MAINNET) {
   throw new Error("alchemy endpoint not found");
@@ -11,7 +13,7 @@ export const publicOptimismClient = createPublicClient({
   transport: http(process.env.ALCHEMY_OPTIMISM_MAINNET),
 });
 
-export const exampleFilteredLogs = async () => {
+export const indexExampleFilteredLogs = async () => {
   const [erc20Logs, nativeLogs] = await Promise.all([
     publicOptimismClient.getFilterLogs({
       filter: await publicOptimismClient.createEventFilter({
@@ -48,7 +50,7 @@ export const exampleFilteredLogs = async () => {
           creatorAddress: logArgs.creator.toLowerCase(),
           uri: logArgs.uri,
           tokenAddress: logArgs.token.toLowerCase(),
-          amount: logArgs.amount.toString(),
+          amount: logArgs.amount,
         },
         ...baseLog,
       };
@@ -59,10 +61,21 @@ export const exampleFilteredLogs = async () => {
           creatorAddress: logArgs.to.toLowerCase(),
           uri: logArgs.uri,
           tokenAddress: null,
-          amount: logArgs.amount.toString(),
+          amount: logArgs.amount,
         },
         ...baseLog,
       };
     }
   });
+
+  await db.insert(curations).values(dec.map(e => {
+    return {
+      toAddress: e.address,
+      blockNumber: e.blockNumber,
+      amount: e.event.amount,
+      uri: e.event.uri,
+      tokenAddress: e.event.tokenAddress
+    }
+
+  })).onConflictDoNothing();
 }

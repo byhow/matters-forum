@@ -18,23 +18,23 @@ That being said, it is time to set some requirements and scope for this project.
 
 I have around 30 hours of time to work on this until Sunday 11:59pm on Mar. 24th, and for some simple project management, a rough estimate for this roadmap:
 
-1. 2hr on scaffolding everything and make initial deployment
-2. 6hr on IPFS indexer (a separate service)
-3. 6hr on a skeleton platform (sorting, searching, etc)
-4. 6hr on Auth + web address verification
-5. 6hr on integration
-6. 4hr leeway
+- [x] 2hr on scaffolding everything and make initial deployment
+- [x] (mvp done) 6hr on IPFS indexer (a separate service) 
+- [ ] 6hr on a skeleton platform (sorting, searching, etc)
+- [ ] 6hr on Auth + web address verification
+- [ ] 6hr on integration
+- [ ] 4hr leeway
 
 And I probably won't be able to work the full 30 hours time anyways, but the plan will looks like this. A rough pick on the tech stack:
 
-- Next.js + TRPC server
-- Drizzle + neondb for backend
-- NextAuth/Clerk + some web3 account verification/signature library
+- Next.js + server actions
+- Drizzle + supabase for backend
+- Clerk + some web3 account verification/signature library
 
 For an MVP, let's start with:
 
-- minimal websocket indexer to index events
+- minimal websocket indexer to index events ✅
   - along with a title for the CID (experimental)
 - fullstack app:
   - frontend to get posts from db
-  - backend api for default sorting by timestamp
+  - backend api for default sorting by blocknumber

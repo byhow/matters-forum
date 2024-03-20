@@ -1,9 +1,5 @@
 import { db } from "@/lib/db";
-import {
-  CURATION_ABI,
-  erc20TokenCurationEventSignature,
-  nativeTokenCurationEventSignature,
-} from "@/lib/abi";
+import { CURATION_ABI } from "@/lib/abi";
 import { publicOptimismClient } from "@/lib/optimism";
 import { curations, dump } from "@/lib/db/schema";
 import { parseAbiItem, type Hex, decodeEventLog } from "viem";

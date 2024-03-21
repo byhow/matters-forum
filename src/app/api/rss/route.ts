@@ -28,9 +28,10 @@ export async function GET(req: Request, res: NextResponse) {
   //   })
   // })
 
-  // return new Response(feed.xml({ indent: true }), {
+  // return new NextResponse(feed.xml({ indent: true }), {
   //   headers: {
   //     'Content-Type': 'application/xml; charset=utf-8',
   //   },
   // })
+  return new NextResponse()
 }

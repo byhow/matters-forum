@@ -9,9 +9,6 @@ const articleSchema = z.object({
   article_title: z.string(),
   author: z.string(),
   date: z.date(),
-  description: z
-    .optional(z.string())
-    .describe("A brief summary of the article or the pull quotes"),
 });
 
 const metadataTagger = createMetadataTaggerFromZod(articleSchema, {
@@ -21,16 +18,17 @@ const metadataTagger = createMetadataTaggerFromZod(articleSchema, {
 export const getArticleMetadata = async (url: string) => {
   const loader = new CheerioWebBaseLoader(url);
   const docs = await loader.load();
-
+  // console.log('loading...')
   const splitter = RecursiveCharacterTextSplitter.fromLanguage("html");
   const transformer = new HtmlToTextTransformer();
-
+  // console.log('transforming...')
   const sequence = splitter.pipe(transformer);
 
-  const documents = await sequence.invoke(docs);
-
+  const documents = await sequence.invoke(docs.slice(0, 2));
+  // console.log('tagging...')
   const taggedDocuments = await metadataTagger.transformDocuments(documents);
 
   return taggedDocuments
 }
 
+// getArticleMetadata('https://ipfs.io/ipfs/QmaHs88vA51MQYgyjhhnA8NNfJRddpKFTASfq9psDJ7kYh').then((r) => console.log(r))

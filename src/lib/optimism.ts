@@ -3,6 +3,7 @@ import { optimism } from "viem/chains";
 import { erc20TokenCurationEventSignature, nativeTokenCurationEventSignature, CURATION_ABI } from "./abi";
 import { db } from "./db";
 import { curations } from "./db/schema";
+import { getArticleMetadata } from "./gpt";
 
 if (!process.env.ALCHEMY_OPTIMISM_MAINNET) {
   throw new Error("alchemy endpoint not found");
@@ -76,6 +77,5 @@ export const indexExampleFilteredLogs = async () => {
       uri: e.event.uri,
       tokenAddress: e.event.tokenAddress
     }
-
   })).onConflictDoNothing();
 }

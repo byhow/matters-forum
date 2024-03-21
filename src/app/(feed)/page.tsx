@@ -43,7 +43,6 @@ export default async function Home() {
   return (
     <div>
       <Feed />
-      <pre hidden>Secretly Running Indexer...</pre>
     </div>
   );
 }

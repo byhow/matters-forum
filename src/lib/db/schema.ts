@@ -24,6 +24,8 @@ export const curations = pgTable("curations", {
   }
 });
 
+export type CurationSchema = typeof curations.$inferSelect;
+
 export const dump = pgTable("dump", {
   id: serial("id").primaryKey(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
@@ -43,3 +45,8 @@ export const users = pgTable("users", {
     username_idx: index("username_idx").on(t.username),
   })
 );
+
+export const feeds = pgTable('feeds', {
+  id: varchar("id", { length: 256 }).primaryKey().notNull(),
+  blockNumber: integer('block_number').unique(),
+})

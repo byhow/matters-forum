@@ -1,10 +1,12 @@
 import { db } from "@/lib/db";
-import { curations } from "@/lib/db/schema";
+import { curations } from "@/lib/db";
 import { desc } from "drizzle-orm";
 import Link from "next/link";
 import { Suspense } from "react";
 import MoreLink from "./more-link";
 import { convertIPFStoHTTPS } from "@/lib/ipfs";
+import { headers } from "next/headers";
+import { nanoid } from "nanoid";
 
 const PER_PAGE = 30;
 
@@ -40,7 +42,11 @@ export async function Feed({
   type = null,
   q = null,
 }: Props) {
+  const uid = headers().get("x-vercel-id") ?? nanoid();
+  console.time(`fetch stories ${uid}`);
   const feed = await getFeed({ page, isNewest, type });
+  console.timeEnd(`fetch stories ${uid}`);
+
   return feed.length ? (
     <div>
       <ul className="space-y-2 list-disc">

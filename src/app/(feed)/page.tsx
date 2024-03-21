@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { CURATION_ABI } from "@/lib/abi";
 import { publicOptimismClient } from "@/lib/optimism";
-import { curations, dump } from "@/lib/db/schema";
+import { curations, dump } from "@/lib/db";
 import { type Hex, decodeEventLog } from "viem";
 import { Feed } from "@/components/feed";
 import z from "zod";

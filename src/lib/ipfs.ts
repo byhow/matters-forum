@@ -16,7 +16,7 @@ export const ipfsLs = async (client: HeliaLibp2p) => {
   const fs = unixfs(client);
   const subDir: UnixFSEntry[] = [];
   for await (const entries of fs.ls(
-    `QmWEtNfgQUhYzHcvsPuTSzR23DpF3jgtpEqnphS8LUBzzM` as any
+    `QmWEtNfgQUhYzHcvsPuTSzR23DpF3jgtpEqnphS8LUBzzM` as any // cid
   )) {
     subDir.push(entries);
   }

@@ -18,15 +18,15 @@ export const indexExampleFilteredLogs = async () => {
     publicOptimismClient.getFilterLogs({
       filter: await publicOptimismClient.createEventFilter({
         event: parseAbiItem(erc20TokenCurationEventSignature),
-        fromBlock: BigInt(117622710),
-        toBlock: BigInt(117638279),
+        fromBlock: BigInt(117141540),
+        toBlock: BigInt(117679190),
       }),
     }),
     publicOptimismClient.getFilterLogs({
       filter: await publicOptimismClient.createEventFilter({
         event: parseAbiItem(nativeTokenCurationEventSignature),
-        fromBlock: BigInt(117622710),
-        toBlock: BigInt(117638279),
+        fromBlock: BigInt(117141540),
+        toBlock: BigInt(117679190),
       }),
     }),
   ]);

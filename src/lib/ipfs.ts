@@ -29,3 +29,12 @@ export const ipfsLs = async (client: HeliaLibp2p) => {
     depth: s.depth,
   }));
 }
+
+export function convertIPFStoHTTPS(ipfsUrl: string) {
+  // Define the IPFS base URL for the conversion
+  const baseURL = "https://ipfs.io/ipfs/";
+  // const pinataURL = "https://gateway.pinata.cloud/ipfs/";
+  // Replace the IPFS protocol prefix with the base HTTP URL
+  const httpsUrl = ipfsUrl.replace("ipfs://", baseURL);
+  return httpsUrl;
+}

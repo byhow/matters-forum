@@ -79,7 +79,7 @@ export default function HNLayout({ children }: { children: React.ReactNode }) {
                   <Link
                     prefetch={true}
                     className="hover:underline"
-                    href="/rss.xml"
+                    href="/api/rss"
                   >
                     rss
                   </Link>

@@ -17,12 +17,15 @@ export default async function Home() {
           topics: log.topics as [signature: `0x${string}`, ...hex: Hex[]],
         });
 
-        db.insert(curations).values({
-          blockNumber: Number(log.blockNumber),
-          toAddress: log.address,
-          uri: decoded.args.uri,
-          amount: decoded.args.amount,
-        });
+        if ("curator" in decoded.args) {
+          db.insert(curations).values({
+            blockNumber: Number(log.blockNumber),
+            toAddress: log.address,
+            uri: decoded.args.uri,
+            amount: decoded.args.amount,
+            tokenAddress: decoded.args.token,
+          });
+        }
 
         return decoded;
       });

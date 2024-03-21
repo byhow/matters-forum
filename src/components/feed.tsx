@@ -4,10 +4,18 @@ import { desc } from "drizzle-orm";
 import Link from "next/link";
 import { Suspense } from "react";
 import MoreLink from "./more-link";
-import { convertIPFStoHTTPS } from "@/lib/ipfs";
+// import { convertIPFStoHTTPS } from "@/lib/ipfs";
 
 const PER_PAGE = 30;
 
+export function convertIPFStoHTTPS(ipfsUrl: string) {
+  // Define the IPFS base URL for the conversion
+  const baseURL = "https://ipfs.io/ipfs/";
+  // const pinataURL = "https://gateway.pinata.cloud/ipfs/";
+  // Replace the IPFS protocol prefix with the base HTTP URL
+  const httpsUrl = ipfsUrl.replace("ipfs://", baseURL);
+  return httpsUrl;
+}
 export async function getFeed({
   isNewest,
   page,

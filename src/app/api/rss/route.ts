@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 import RSS from 'rss'
 
 export async function GET(req: Request, res: NextResponse) {
-  const site_url = process.env.NEXT_BASE_URL;
+  const site_url = process.env.BASE_URL;
   if (!site_url) {
     return NextResponse.json({ error: "unable to load base url" }, { status: 500 });
   }

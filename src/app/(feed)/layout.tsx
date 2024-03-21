@@ -74,16 +74,16 @@ export default function HNLayout({ children }: { children: React.ReactNode }) {
                     comments
                   </Link>
                 </li>
-                <li className="px-1">|</li>
+                {/* <li className="px-1">|</li>
                 <li>
-                  {/* <Link
+                  <Link
                     prefetch={true}
                     className="hover:underline"
                     href="/api/rss"
                   >
                     rss
-                  </Link> */}
-                </li>
+                  </Link>
+                </li> */}
               </ul>
             </nav>
           </div>

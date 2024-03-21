@@ -23,7 +23,7 @@ export default async function Home({
   const query = SearchParamsSchema.safeParse(searchParams);
 
   if (!query.success) {
-    return <p>Bad request</p>;
+    return <p>Bad Request</p>;
   }
 
   const isNewest = query.data.newest === "1";

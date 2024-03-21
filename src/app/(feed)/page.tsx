@@ -4,8 +4,32 @@ import { publicOptimismClient } from "@/lib/optimism";
 import { curations, dump } from "@/lib/db/schema";
 import { type Hex, decodeEventLog } from "viem";
 import { Feed } from "@/components/feed";
+import z from "zod";
+import { headers as dynamic } from "next/headers";
 
-export default async function Home() {
+const SearchParamsSchema = z.object({
+  p: z.coerce.number().min(1).max(100).optional().default(1),
+  newest: z.enum(["", "1"]).optional(),
+  type: z.enum(["ask", "show", "jobs", "story"]).optional().default("story"),
+});
+
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
+  dynamic();
+
+  const query = SearchParamsSchema.safeParse(searchParams);
+
+  if (!query.success) {
+    return <p>Bad request</p>;
+  }
+
+  const isNewest = query.data.newest === "1";
+  const type = query.data.type;
+  const page = query.data.p;
+
   publicOptimismClient.watchContractEvent({
     address: "0x5edebbdae7B5C79a69AaCF7873796bb1Ec664DB8",
     abi: CURATION_ABI,
@@ -19,13 +43,17 @@ export default async function Home() {
         });
 
         if ("curator" in decoded.args) {
-          db.insert(curations).values({
-            blockNumber: Number(log.blockNumber),
-            toAddress: log.address,
-            uri: decoded.args.uri,
-            amount: decoded.args.amount,
-            tokenAddress: decoded.args.token,
-          });
+          db.insert(curations)
+            .values({
+              blockNumber: Number(log.blockNumber),
+              toAddress: log.address,
+              uri: decoded.args.uri,
+              amount: decoded.args.amount,
+              tokenAddress: decoded.args.token,
+            })
+            .onConflictDoNothing({
+              target: curations.blockNumber,
+            });
         }
 
         return decoded;
@@ -42,7 +70,7 @@ export default async function Home() {
 
   return (
     <div>
-      <Feed />
+      <Feed page={page} isNewest={isNewest} type={type} />
     </div>
   );
 }

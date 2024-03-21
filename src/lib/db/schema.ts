@@ -12,7 +12,7 @@ import {
 export const curations = pgTable("curations", {
   id: serial("id").primaryKey(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
-  blockNumber: integer('block_number'),
+  blockNumber: integer('block_number').unique(),
   toAddress: varchar("to_address", { length: 42 }),
   amount: bigint("amount", { mode: "bigint" }),
   tokenAddress: varchar("token_address", { length: 42 }),

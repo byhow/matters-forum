@@ -21,7 +21,7 @@ I have around 30 hours of time to work on this until Sunday 11:59pm on Mar. 24th
 - [x] 2hr on scaffolding everything and make initial deployment
 - [x] (mvp done) 6hr on IPFS indexer (a separate service) 
 - [ ] 6hr on a skeleton platform (sorting, searching, etc)
-- [ ] 6hr on Auth + web address verification
+- [x] 6hr on Auth + web address verification
 - [ ] 6hr on integration
 - [ ] 4hr leeway
 
@@ -29,7 +29,7 @@ And I probably won't be able to work the full 30 hours time anyways, but the pla
 
 - Next.js + server actions
 - Drizzle + supabase for backend
-- Clerk + some web3 account verification/signature library
+- Clerk for metamask sign-in
 
 For an MVP, let's start with:
 

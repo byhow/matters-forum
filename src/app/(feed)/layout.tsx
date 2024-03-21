@@ -74,6 +74,16 @@ export default function HNLayout({ children }: { children: React.ReactNode }) {
                     comments
                   </Link>
                 </li>
+                <li className="px-1">|</li>
+                <li>
+                  <Link
+                    prefetch={true}
+                    className="hover:underline"
+                    href="/rss.xml"
+                  >
+                    rss
+                  </Link>
+                </li>
               </ul>
             </nav>
           </div>

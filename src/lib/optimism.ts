@@ -77,5 +77,9 @@ export const indexExampleFilteredLogs = async () => {
       uri: e.event.uri,
       tokenAddress: e.event.tokenAddress
     }
-  })).onConflictDoNothing();
+  })).onConflictDoNothing({
+    target: curations.blockNumber
+  });
 }
+
+// indexExampleFilteredLogs()

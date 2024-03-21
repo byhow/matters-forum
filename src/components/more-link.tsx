@@ -1,7 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import dynamic from "next/dynamic";
+// import dynamic from "next/dynamic";
 
 function MoreLink({ page, q }: { page: number; q: string | null }) {
   const pathname = usePathname();
@@ -21,4 +21,5 @@ function MoreLink({ page, q }: { page: number; q: string | null }) {
   );
 }
 
-export default dynamic(() => Promise.resolve(MoreLink), { ssr: false });
+export default MoreLink;
+// export default dynamic(() => Promise.resolve(MoreLink), { ssr: false });

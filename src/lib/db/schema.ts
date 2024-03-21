@@ -30,7 +30,7 @@ export const dump = pgTable("dump", {
   eventDump: text("event_dump"),
 });
 
-export const usersTable = pgTable("users", {
+export const users = pgTable("users", {
   id: varchar("id", { length: 256 }).primaryKey().notNull(),
   username: varchar("username", { length: 256 }).notNull().unique(),
   email: varchar("email", { length: 256 }),

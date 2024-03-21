@@ -3,6 +3,7 @@ import { CURATION_ABI } from "@/lib/abi";
 import { publicOptimismClient } from "@/lib/optimism";
 import { curations, dump } from "@/lib/db/schema";
 import { type Hex, decodeEventLog } from "viem";
+import { Feed } from "@/components/feed";
 
 export default async function Home() {
   publicOptimismClient.watchContractEvent({
@@ -41,6 +42,7 @@ export default async function Home() {
 
   return (
     <div>
+      <Feed />
       <pre hidden>Secretly Running Indexer...</pre>
     </div>
   );

@@ -2,7 +2,6 @@ import { getIpfsClient, ipfsLs } from "@/lib/ipfs";
 import { unixfs } from "@helia/unixfs";
 import { NextResponse } from "next/server";
 
-
 export async function GET(req: Request, res: NextResponse) {
   const ipfsClient = await getIpfsClient();
   const subs = await ipfsLs(ipfsClient)

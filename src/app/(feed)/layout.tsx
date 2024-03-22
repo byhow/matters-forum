@@ -76,11 +76,7 @@ export default function HNLayout({ children }: { children: React.ReactNode }) {
                 </li>
                 <li className="px-1">|</li>
                 <li>
-                  <Link
-                    prefetch={true}
-                    className="hover:underline"
-                    href="/api/rss"
-                  >
+                  <Link className="hover:underline" href="/rss">
                     rss
                   </Link>
                 </li>

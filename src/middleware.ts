@@ -4,13 +4,16 @@ import { authMiddleware } from "@clerk/nextjs";
 // for more information about configuring your Middleware
 
 export default authMiddleware({
+  beforeAuth: (req) => {
+    console.log(req.url)
+  },
   // Allow signed out users to access the specified routes:
-  publicRoutes: ['/', "/newest", "/trend", "/newcomments"],
+  publicRoutes: ["/", "/newest", "/trend", "/newcomments", "/rss"],
   // Prevent the specified routes from accessing
   // authentication information:
   // ignoredRoutes: ['/no-auth-in-this-route'],
 });
 
 export const config = {
-  matcher: ['/((?!.+\\.[\\w]+$|_next).*)', '/', '/(api|trpc)(.*)'],
+  matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
 };

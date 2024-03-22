@@ -57,29 +57,26 @@ export async function POST(req: Request, res: NextResponse) {
   console.log(`Webhook with and ID of ${id} and type of ${eventType}`)
   console.log('Webhook body:', body)
 
-  const { userId } = auth()
-  if (!userId) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-  const user = await clerkClient.users.getUser(userId);
-  const walletId = user ? user.primaryWeb3WalletId : null;
-  const address = user
-    ? user.web3Wallets.find((wallet) => wallet.id === walletId)
-    : null;
+  // TODO: add web3 address to db
+  // const user = await clerkClient.users.getUser(userId);
+  // const walletId = user ? user.primaryWeb3WalletId : null;
+  // const address = user
+  //   ? user.web3Wallets.find((wallet) => wallet.id === walletId)
+  //   : null;
 
-  switch (evt.type) {
-    case 'session.created': {
-      await db.insert(users).values({
-        id: genUserId(),
-        clerkUserId: userId,
-        web3Address: address?.web3Wallet
-      }).onConflictDoNothing()
-    }
-    case 'session.ended': {
-      redirect('/')
-    }
-  }
+  // switch (evt.type) {
+  //   case 'session.created': {
+  //     await db.insert(users).values({
+  //       id: genUserId(),
+  //       clerkUserId: userId,
+  //       web3Address: address?.web3Wallet
+  //     }).onConflictDoNothing()
+  //   }
+  //   case 'session.ended': {
+  //     redirect('/')
+  //   }
+  // }
 
-  console.log(`user created: ${userId}`)
-  return NextResponse.json({ userId }, { status: 200 })
+  // console.log(`user created: ${userId}`)
+  return NextResponse.json("", { status: 200 })
 }

@@ -1,12 +1,5 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import {
-  UserButton,
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  auth,
-} from "@clerk/nextjs";
 import { AuthNav } from "./auth-nav";
 
 export const metadata = {
@@ -18,8 +11,6 @@ export const metadata = {
 };
 
 export default function HNLayout({ children }: { children: React.ReactNode }) {
-  const { userId } = auth();
-
   return (
     <div className="md:px-20 md:py-2 flex flex-col h-screen text-[15px] leading-[18px]">
       <header className="flex items-center justify-between py-2 md:py-1 px-1 pr-2 bg-green-700 text-sm gap-2">

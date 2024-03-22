@@ -18,7 +18,7 @@ const getComments = async ({
       comment: comments.comment,
       username: comments.username,
       author: comments.author,
-      author_username: users.username,
+      author_username: users.web3Address,
       created_at: comments.createdAt,
       parent_id: comments.parentId,
     })

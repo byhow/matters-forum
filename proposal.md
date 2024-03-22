@@ -38,3 +38,7 @@ For an MVP, let's start with:
 - fullstack app:
   - frontend to get posts from db
   - backend api for default sorting by blocknumber
+
+
+3/21
+Ran into some crazy vercel issue that doesn't emit any logs and unable to find package.json. I have to remove all the api routes at this moment to fix it, but it happens on and off for now reasons.

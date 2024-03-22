@@ -1,4 +1,4 @@
-import { db } from "@/lib/db";
+import { db, genCurationId } from "@/lib/db";
 import { CURATION_ABI } from "@/lib/abi";
 import { publicOptimismClient } from "@/lib/optimism";
 import { curations, dump } from "@/lib/db";
@@ -45,6 +45,8 @@ export default async function Home({
         if ("curator" in decoded.args) {
           db.insert(curations)
             .values({
+              id: genCurationId(),
+              txHash: log.transactionHash,
               blockNumber: Number(log.blockNumber),
               toAddress: log.address,
               uri: decoded.args.uri,

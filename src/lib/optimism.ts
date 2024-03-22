@@ -2,7 +2,7 @@ import { createPublicClient, decodeEventLog, Hex, http, parseAbiItem } from "vie
 import { optimism } from "viem/chains";
 import { erc20TokenCurationEventSignature, nativeTokenCurationEventSignature, CURATION_ABI } from "./abi";
 import { db } from "./db";
-import { curations } from "./db/schema";
+import { curations, genCurationId } from "./db/schema";
 import { getArticleMetadata } from "./gpt";
 
 if (!process.env.ALCHEMY_OPTIMISM_MAINNET) {
@@ -71,6 +71,8 @@ export const indexExampleFilteredLogs = async () => {
 
   await db.insert(curations).values(dec.map(e => {
     return {
+      id: genCurationId(),
+      txHash: e.txHash,
       toAddress: e.address,
       blockNumber: e.blockNumber,
       amount: e.event.amount,
@@ -78,7 +80,7 @@ export const indexExampleFilteredLogs = async () => {
       tokenAddress: e.event.tokenAddress
     }
   })).onConflictDoNothing({
-    target: curations.blockNumber
+    target: curations.txHash
   });
 }
 

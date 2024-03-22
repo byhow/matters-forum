@@ -3,6 +3,7 @@
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request, res: NextResponse) {
+  // TODO: something really wrong about using @helia/unixfs, very capricious
   // const ipfsClient = await getIpfsClient();
   // const subs = await ipfsLs(ipfsClient)
   // let cid = subs[0].cid

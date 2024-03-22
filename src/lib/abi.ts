@@ -38,6 +38,7 @@ export const CURATION_ABI = [
   ...nativeTokenCurationEventABI,
 ] as const;
 
+// ref from etherscan
 // export const curationAbi = [
 //   { inputs: [], name: "InvalidURI", type: "error" },
 //   { inputs: [], name: "SelfCuration", type: "error" },

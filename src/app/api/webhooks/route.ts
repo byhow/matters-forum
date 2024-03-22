@@ -3,6 +3,7 @@ import { headers } from 'next/headers'
 import { auth, clerkClient, WebhookEvent } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 import { db, genUserId, users } from '@/lib/db'
+import { redirect } from 'next/navigation'
 
 export async function POST(req: Request, res: NextResponse) {
 
@@ -73,6 +74,9 @@ export async function POST(req: Request, res: NextResponse) {
         clerkUserId: userId,
         web3Address: address?.web3Wallet
       }).onConflictDoNothing()
+    }
+    case 'session.ended': {
+      redirect('/')
     }
   }
 

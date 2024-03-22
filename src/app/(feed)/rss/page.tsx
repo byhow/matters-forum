@@ -1,6 +1,7 @@
 import { db, CurationSchema } from "@/lib/db";
 import { curations } from "@/lib/db";
 import { convertIPFStoHTTPS } from "@/lib/ipfs";
+import { desc } from "drizzle-orm";
 
 function generateRSS(curations: CurationSchema[]) {
   const site_url = process.env.NEXT_PUBLIC_BASE_URL;
@@ -42,7 +43,10 @@ function generateRSS(curations: CurationSchema[]) {
 }
 
 export default async function RSSPage() {
-  const posts = await db.select().from(curations);
+  const posts = await db
+    .select()
+    .from(curations)
+    .orderBy(desc(curations.blockNumber));
   return (
     <div>
       <pre>{generateRSS(posts)}</pre>

@@ -5,7 +5,7 @@ import { authMiddleware } from "@clerk/nextjs";
 
 export default authMiddleware({
   beforeAuth: (req) => {
-    console.log(req.url)
+    console.log(`Current URL is: ${req.url}`)
   },
   // Allow signed out users to access the specified routes:
   publicRoutes: ["/", "/newest", "/trend", "/newcomments", "/rss"],

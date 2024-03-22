@@ -29,7 +29,7 @@ export default function HNLayout({ children }: { children: React.ReactNode }) {
             </Link>
             <nav>
               <ul className="inline-flex leading-tight tracking-tight flex-wrap">
-                <li>
+                {/* <li>
                   <Link
                     prefetch={true}
                     className="hover:underline"
@@ -37,7 +37,7 @@ export default function HNLayout({ children }: { children: React.ReactNode }) {
                   >
                     newest
                   </Link>
-                </li>
+                </li> */}
                 {/* <li className="px-1">|</li> */}
                 {/* <li>
                   <Suspense
@@ -54,7 +54,7 @@ export default function HNLayout({ children }: { children: React.ReactNode }) {
                     <ThreadsLink />
                   </Suspense>
                 </li> */}
-                <li className="px-1">|</li>
+                {/* <li className="px-1">|</li>
                 <li>
                   <Link
                     prefetch={true}
@@ -79,7 +79,7 @@ export default function HNLayout({ children }: { children: React.ReactNode }) {
                   <Link className="hover:underline" href="/rss">
                     rss
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </nav>
           </div>

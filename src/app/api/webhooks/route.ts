@@ -1,8 +1,10 @@
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
-import { WebhookEvent } from '@clerk/nextjs/server'
+import { auth, clerkClient, WebhookEvent } from '@clerk/nextjs/server'
+import { NextResponse } from 'next/server'
+import { db, genUserId, users } from '@/lib/db'
 
-export async function POST(req: Request) {
+export async function POST(req: Request, res: NextResponse) {
 
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
   const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET_KEY
@@ -54,5 +56,25 @@ export async function POST(req: Request) {
   console.log(`Webhook with and ID of ${id} and type of ${eventType}`)
   console.log('Webhook body:', body)
 
-  return new Response('', { status: 200 })
+  const { userId } = auth()
+  if (!userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  const user = await clerkClient.users.getUser(userId);
+  const walletId = user ? user.primaryWeb3WalletId : null;
+  const address = user
+    ? user.web3Wallets.find((wallet) => wallet.id === walletId)
+    : null;
+
+  switch (evt.type) {
+    case 'session.created': {
+      db.insert(users).values({
+        id: genUserId(),
+        clerkUserId: userId,
+        web3Address: address?.web3Wallet
+      }).onConflictDoNothing()
+    }
+  }
+
+  return NextResponse.json({ userId }, { status: 200 })
 }

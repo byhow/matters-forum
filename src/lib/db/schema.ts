@@ -57,14 +57,14 @@ export const users = pgTable(
   "users",
   {
     id: varchar("id", { length: 256 }).primaryKey().notNull(),
-    username: varchar("username", { length: 256 }).notNull().unique(),
-    email: varchar("email", { length: 256 }),
+    clerkUserId: varchar("clerk_user_id", { length: 256 }).notNull().unique(),
+    web3Address: varchar("web3_address", { length: 42 }),
     karma: integer("karma").notNull().default(0),
     createdAt: timestamp("created_at").notNull().defaultNow(),
     updatedAt: timestamp("updated_at").notNull().defaultNow(),
   },
   (t) => ({
-    usernameIndex: index("username_index").on(t.username),
+    usernameIndex: index("clerk_user_id").on(t.clerkUserId),
   })
 );
 

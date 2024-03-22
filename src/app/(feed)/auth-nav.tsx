@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
-import { auth, SignInButton, UserButton } from "@clerk/nextjs";
-import { Button } from "@/components/ui/button";
+import { auth, UserButton } from "@clerk/nextjs";
 
 export async function AuthNav() {
   // fast path to being logged out, no i/o needed
@@ -18,5 +17,5 @@ export async function AuthNav() {
 }
 
 function LoggedOut() {
-  return <SignInButton afterSignInUrl="/" redirectUrl="/" mode="modal" />;
+  return <Link href={"/sign-in"}>Sign in</Link>;
 }

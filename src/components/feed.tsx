@@ -131,6 +131,7 @@ async function hasMoreFeed({
     .from(curations)
     .limit(PER_PAGE)
     .offset(page * PER_PAGE);
+
   return count.length > 0;
 }
 
@@ -152,5 +153,9 @@ async function More({
     q,
   });
 
-  return hasMore ? <MoreLink q={q} page={page + 1} /> : null;
+  if (hasMore) {
+    return <MoreLink q={q} page={page + 1} />;
+  } else {
+    return null;
+  }
 }

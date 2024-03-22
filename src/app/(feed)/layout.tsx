@@ -1,6 +1,12 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import { AuthNav } from "./auth-nav";
+import {
+  SignedOut,
+  SignedIn,
+  SignInButton,
+  UserButton,
+  auth,
+} from "@clerk/nextjs";
 
 export const metadata = {
   openGraph: {
@@ -11,6 +17,7 @@ export const metadata = {
 };
 
 export default function HNLayout({ children }: { children: React.ReactNode }) {
+  const { userId } = auth();
   return (
     <div className="md:px-20 md:py-2 flex flex-col h-screen text-[15px] leading-[18px]">
       <header className="flex items-center justify-between py-2 md:py-1 px-1 pr-2 bg-green-700 text-sm gap-2">
@@ -69,7 +76,11 @@ export default function HNLayout({ children }: { children: React.ReactNode }) {
         </div>
         <div className="flex flex-col md:flex-row items-end min-w-[30%] md:min-w-[inherit] md:items-center">
           <Suspense fallback={null}>
-            <AuthNav />
+            {userId ? (
+              <UserButton afterSignOutUrl="/" />
+            ) : (
+              <Link href={"/sign-in"}>Sign In</Link>
+            )}
           </Suspense>
         </div>
       </header>

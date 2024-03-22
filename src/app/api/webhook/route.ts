@@ -76,5 +76,5 @@ export async function POST(req: Request, res: NextResponse) {
   // }
 
   // console.log(`user created: ${userId}`)
-  return NextResponse.json("", { status: 200 })
+  return new NextResponse(null, { status: 200 })
 }

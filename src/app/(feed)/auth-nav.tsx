@@ -17,5 +17,5 @@ export async function AuthNav() {
 }
 
 function LoggedOut() {
-  return <Link href="/sign-in">Sign in</Link>;
+  return <SignInButton />;
 }

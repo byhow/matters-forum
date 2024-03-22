@@ -13,7 +13,7 @@ export async function AuthNav() {
     return <LoggedOut />;
   }
 
-  return <UserButton />;
+  return <UserButton afterSignOutUrl="/" />;
 }
 
 function LoggedOut() {

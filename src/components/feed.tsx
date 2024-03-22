@@ -7,6 +7,7 @@ import MoreLink from "./more-link";
 import { convertIPFStoHTTPS } from "@/lib/ipfs";
 import { headers } from "next/headers";
 import { nanoid } from "nanoid";
+import { TimeAgo } from "./time-ago";
 
 const PER_PAGE = 30;
 
@@ -60,14 +61,45 @@ export async function Feed({
               <span className="align-top text-[#666] md:text-[#828282] text-right flex-shrink-0 min-w-6 md:min-w-5">
                 {n + (page - 1) * PER_PAGE + 1}.
               </span>
-              <Link
-                className="underline"
-                rel="noopener noreferrer"
-                target="_blank"
-                href={convertIPFStoHTTPS(post.uri)}
-              >
-                {post.blockNumber} - {convertIPFStoHTTPS(post.uri)}
-              </Link>
+              <div>
+                <a
+                  className="text-[#000000] hover:underline"
+                  rel="nofollow noreferrer"
+                  target="_blank"
+                  href={convertIPFStoHTTPS(post.uri)}
+                >
+                  {post.txHash} - {post.blockNumber}
+                </a>
+                <span className="text-xs ml-1 text-[#666] md:text-[#828282]">
+                  (ipfs.io)
+                </span>
+                <p className="text-xs text-[#666] md:text-[#828282]">
+                  <TimeAgo now={Date.now()} date={post.createdAt} /> |{" "}
+                  <span
+                    className="cursor-default"
+                    aria-hidden="true"
+                    title="Not implemented"
+                  >
+                    tag
+                  </span>{" "}
+                  |{" "}
+                  <span
+                    className="cursor-default"
+                    aria-hidden="true"
+                    title="Not implemented"
+                  >
+                    hide
+                  </span>{" "}
+                  |{" "}
+                  <Link
+                    prefetch={true}
+                    className="hover:underline"
+                    href={`/item/${post.id.replace(/^curation_/, "")}`}
+                  >
+                    {post.commentCount} comments
+                  </Link>
+                </p>
+              </div>
             </li>
           );
         })}

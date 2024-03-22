@@ -64,7 +64,7 @@ function ReplyFormFields({
           (error.code === "AUTH_ERROR" ? (
             <span className="text-red-500 text-sm">
               You must be{" "}
-              <Link className="text-red-800 hover:underline" href="/login">
+              <Link className="text-red-800 hover:underline" href="/sign-in">
                 logged in
               </Link>{" "}
               to reply.

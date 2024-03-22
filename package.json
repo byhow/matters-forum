@@ -9,8 +9,7 @@
     "lint": "next lint",
     "studio": "drizzle-kit studio",
     "migrate": "drizzle-kit push:pg",
-    "generate": "drizzle-kit generate:pg",
-    "demo": "pnpm ts-node --skip-project src/lib/optimism.ts"
+    "generate": "drizzle-kit generate:pg"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.29.9",
@@ -41,9 +40,9 @@
     "postgres": "^3.4.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "svix": "^1.21.0",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
-    "ts-node": "^10.9.2",
     "viem": "^2.8.16",
     "zod": "^3.22.4"
   },

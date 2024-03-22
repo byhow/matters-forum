@@ -18,6 +18,7 @@ export const metadata = {
 };
 
 const getFeed = async function (idParam: string) {
+  const id = `curation_${idParam}`;
   return (
     await db
       .select({
@@ -27,7 +28,7 @@ const getFeed = async function (idParam: string) {
         comment_count: curations.commentCount,
       })
       .from(curations)
-      .where(eq(curations.id, idParam))
+      .where(eq(curations.id, id))
       .limit(1)
   )[0];
 };
@@ -75,7 +76,7 @@ export default async function ItemPage({
           ) : (
             <Link
               prefetch={true}
-              href={`/item/${feed.id.replace(/^feed_/, "")}`}
+              href={`/item/${feed.id.replace(/^curation_/, "")}`}
               className="text-[#000000] hover:underline"
             >
               {feed.id}
@@ -88,7 +89,7 @@ export default async function ItemPage({
             <Link
               prefetch={true}
               className="hover:underline"
-              href={`/item/${feed.id.replace(/^story_/, "")}`}
+              href={`/item/${feed.id.replace(/^curation_/, "")}`}
             >
               {feed.comment_count} comments
             </Link>

@@ -54,10 +54,9 @@ export default async function Home({
               tokenAddress: decoded.args.token,
             })
             .onConflictDoNothing({
-              target: curations.blockNumber,
+              target: curations.txHash,
             });
         }
-
         return decoded;
       });
 

@@ -97,5 +97,3 @@ export const indexExampleFilteredLogs = async () => {
       target: curations.txHash,
     });
 };
-
-indexExampleFilteredLogs();

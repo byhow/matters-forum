@@ -18,9 +18,5 @@ export async function AuthNav() {
 }
 
 function LoggedOut() {
-  return (
-    <Link href={"/sign-in"}>
-      <Button>Sign In</Button>
-    </Link>
-  );
+  return <SignInButton afterSignInUrl="/" redirectUrl="/" mode="modal" />;
 }

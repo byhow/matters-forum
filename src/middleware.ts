@@ -8,7 +8,7 @@ export default authMiddleware({
     console.log(`Current URL is: ${req.url}`)
   },
   // Allow signed out users to access the specified routes:
-  publicRoutes: ["/", "/newest", "/trend", "/newcomments", "/rss", "/item/:itemId", "/api/webhooks(.*)"]
+  publicRoutes: ["/", "/newest", "/trend", "/newcomments", "/rss", "/api/webhooks(.*)"]
   // Prevent the specified routes from accessing
   // authentication information:
   // ignoredRoutes: ['/no-auth-in-this-route'],

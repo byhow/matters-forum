@@ -1,7 +1,13 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import { UserButton, SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
-// import { AuthNav, SubmitLink, ThreadsLink } from "./auth-nav";
+import {
+  UserButton,
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  auth,
+} from "@clerk/nextjs";
+import { AuthNav } from "./auth-nav";
 
 export const metadata = {
   openGraph: {
@@ -12,6 +18,8 @@ export const metadata = {
 };
 
 export default function HNLayout({ children }: { children: React.ReactNode }) {
+  const { userId } = auth();
+
   return (
     <div className="md:px-20 md:py-2 flex flex-col h-screen text-[15px] leading-[18px]">
       <header className="flex items-center justify-between py-2 md:py-1 px-1 pr-2 bg-green-700 text-sm gap-2">
@@ -38,22 +46,6 @@ export default function HNLayout({ children }: { children: React.ReactNode }) {
                     newest
                   </Link>
                 </li>
-                <li className="px-1">|</li>
-                {/* <li>
-                  <Suspense
-                    fallback={
-                      <Link
-                        prefetch={true}
-                        className="hover:underline"
-                        href="/login/next/threads"
-                      >
-                        threads
-                      </Link>
-                    }
-                  >
-                    <ThreadsLink />
-                  </Suspense>
-                </li> */}
                 <li className="px-1">|</li>
                 <li>
                   <Link
@@ -84,23 +76,11 @@ export default function HNLayout({ children }: { children: React.ReactNode }) {
             </nav>
           </div>
         </div>
-        <div className="items-end">
-          <Suspense fallback={null}>
-            <SignedIn>
-              {/* Mount the UserButton component */}
-              <UserButton />
-            </SignedIn>
-            <SignedOut>
-              {/* Signed out users get sign in button */}
-              <SignInButton />
-            </SignedOut>
-          </Suspense>
-        </div>
-        {/* <div className="flex flex-col md:flex-row items-end min-w-[30%] md:min-w-[inherit] md:items-center">
+        <div className="flex flex-col md:flex-row items-end min-w-[30%] md:min-w-[inherit] md:items-center">
           <Suspense fallback={null}>
             <AuthNav />
           </Suspense>
-        </div> */}
+        </div>
       </header>
 
       <main className="py-4 px-1 md:px-2 flex-grow bg-[#f6f6ef]">

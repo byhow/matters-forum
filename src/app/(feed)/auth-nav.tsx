@@ -1,4 +1,4 @@
-import Link from "next/link";
+// import Link from "next/link";
 import { cookies } from "next/headers";
 import { auth, SignInButton, UserButton } from "@clerk/nextjs";
 
@@ -17,5 +17,5 @@ export async function AuthNav() {
 }
 
 function LoggedOut() {
-  return <SignInButton />;
+  return <SignInButton afterSignInUrl="/" mode="modal" />;
 }

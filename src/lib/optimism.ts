@@ -98,4 +98,4 @@ export const indexExampleFilteredLogs = async () => {
     });
 };
 
-// indexExampleFilteredLogs();
+indexExampleFilteredLogs();

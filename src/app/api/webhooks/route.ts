@@ -68,7 +68,7 @@ export async function POST(req: Request, res: NextResponse) {
 
   switch (evt.type) {
     case 'session.created': {
-      db.insert(users).values({
+      await db.insert(users).values({
         id: genUserId(),
         clerkUserId: userId,
         web3Address: address?.web3Wallet
@@ -76,5 +76,6 @@ export async function POST(req: Request, res: NextResponse) {
     }
   }
 
+  console.log(`user created: ${userId}`)
   return NextResponse.json({ userId }, { status: 200 })
 }

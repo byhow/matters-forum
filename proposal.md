@@ -20,7 +20,7 @@ I have around 30 hours of time to work on this until Sunday 11:59pm on Mar. 24th
 
 - [x] 2hr on scaffolding everything and make initial deployment
 - [x] (mvp done) 6hr on IPFS indexer (a separate service) 
-- [ ] 6hr on a skeleton platform (sorting, searching, etc)
+- [x] 6hr on a skeleton platform (sorting, searching, etc)
 - [x] 6hr on Auth + web address verification
 - [ ] 6hr on integration
 - [ ] 4hr leeway
@@ -39,6 +39,15 @@ For an MVP, let's start with:
   - frontend to get posts from db
   - backend api for default sorting by blocknumber
 
+Project Architecture
+- auth: no protected route, just need to connect wallet to comment
+  - also show posts that the connected wallet user has (fake login)
+- db: postgres on supabase + drizzle
+- cache: vercel kv + upstash rate-limit lib
+- web3 layer: 
+- ipfs: helia, kind of the only option here
+- payment? if any
+- ui: tailwind shadcn + lucide
 
 3/21
 Ran into some crazy vercel issue that doesn't emit any logs and unable to find package.json. I have to remove all the api routes at this moment to fix it, but it happens on and off for now reasons.

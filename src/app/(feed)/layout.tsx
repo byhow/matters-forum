@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import { AuthNav } from "./auth-nav";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export const metadata = {
   openGraph: {
@@ -69,7 +69,8 @@ export default function HNLayout({ children }: { children: React.ReactNode }) {
         </div>
         <div className="flex flex-col md:flex-row items-end min-w-[30%] md:min-w-[inherit] md:items-center">
           <Suspense fallback={null}>
-            <AuthNav />
+            {/** TODO: implement custom button for sizing and theming */}
+            <ConnectButton label="Connect" />
           </Suspense>
         </div>
       </header>

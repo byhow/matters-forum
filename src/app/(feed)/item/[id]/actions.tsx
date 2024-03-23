@@ -5,7 +5,6 @@ import { db, users, curations, comments, genCommentId } from "@/lib/db";
 import { eq, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { newCommentRateLimit } from "@/lib/rate-limit";
-import { auth } from "@clerk/nextjs";
 
 const ReplyActionSchema = z.object({
   curationId: z.string(),
@@ -39,7 +38,7 @@ export async function replyAction(
   _prevState: any,
   formData: FormData
 ): Promise<ReplyActionData | void> {
-  const { userId } = auth();
+  const { userId } = { userId: "" };
 
   if (!userId) {
     return {

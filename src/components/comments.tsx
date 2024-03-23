@@ -3,7 +3,6 @@ import { sql, desc, eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { nanoid } from "nanoid";
 import { TimeAgo } from "@/components/time-ago";
-import { auth } from "@clerk/nextjs";
 
 const getComments = async ({
   curationId,
@@ -51,7 +50,7 @@ export async function Comments({
   curationId?: string;
   author?: string;
 }) {
-  const { userId } = auth();
+  const { userId } = { userId: "" };
   const rid = headers().get("x-vercel-id") ?? nanoid();
 
   console.time(`fetch comments ${curationId} (req: ${rid})`);

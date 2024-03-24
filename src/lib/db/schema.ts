@@ -36,6 +36,7 @@ export const curations = pgTable(
       blockNumberIndex: index("block_number_index").on(t.blockNumber),
       toAddressIndex: index("to_address_index").on(t.toAddress),
       txHashIndex: index("tx_hash").on(t.txHash),
+      commentCountIndex: index('comment_count_index').on(t.commentCount)
     };
   }
 );
@@ -46,7 +47,7 @@ export const genCurationId = () => `curation_${nanoid(12)}`;
 
 // START DUMP
 export const dump = pgTable("dump", {
-  id: serial("id").primaryKey(),
+  id: serial("id").primaryKey().notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   eventDump: text("event_dump"),
 });

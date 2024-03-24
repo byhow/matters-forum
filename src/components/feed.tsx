@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { curations } from "@/lib/db";
-import { desc } from "drizzle-orm";
+import { desc, and, sql } from "drizzle-orm";
 import Link from "next/link";
 import { Suspense } from "react";
 import MoreLink from "./more-link";
@@ -9,15 +9,17 @@ import { headers } from "next/headers";
 import { nanoid } from "nanoid";
 import { TimeAgo } from "./time-ago";
 
-const PER_PAGE = 30;
+const PER_PAGE = 15;
 
 export async function getFeed({
   isNewest,
+  isTrend,
   page,
   type,
   limit = PER_PAGE,
 }: {
   isNewest: boolean;
+  isTrend: boolean;
   page: number;
   type: string | null;
   limit?: number;
@@ -25,7 +27,10 @@ export async function getFeed({
   return db
     .select()
     .from(curations)
-    .orderBy(desc(curations.blockNumber))
+    .orderBy(
+      isNewest ? desc(curations.createdAt) : desc(curations.blockNumber),
+      isTrend ? desc(curations.commentCount) : sql`1=1`
+    )
     .limit(PER_PAGE)
     .offset((page - 1) * limit);
 }
@@ -33,6 +38,7 @@ export async function getFeed({
 type Props = {
   page?: number;
   isNewest?: boolean;
+  isTrend?: boolean;
   type?: string | null;
   q?: string | null;
 };
@@ -40,12 +46,13 @@ type Props = {
 export async function Feed({
   page = 1,
   isNewest = false,
+  isTrend = false,
   type = null,
   q = null,
 }: Props) {
   const uid = headers().get("x-vercel-id") ?? nanoid();
   console.time(`fetch stories ${uid}`);
-  const feed = await getFeed({ page, isNewest, type });
+  const feed = await getFeed({ page, isNewest, isTrend, type });
   console.timeEnd(`fetch stories ${uid}`);
 
   return feed.length ? (
@@ -106,7 +113,13 @@ export async function Feed({
       </ul>
       <div className="mt-4 ml-7">
         <Suspense fallback={null}>
-          <More page={page} isNewest={isNewest} type={type} q={q} />
+          <More
+            page={page}
+            isNewest={isNewest}
+            isTrend={isTrend}
+            type={type}
+            q={q}
+          />
         </Suspense>
       </div>
     </div>
@@ -117,11 +130,13 @@ export async function Feed({
 
 async function hasMoreFeed({
   isNewest,
+  isTrend,
   type,
   page,
   q,
 }: {
   isNewest: boolean;
+  isTrend: boolean;
   page: number;
   type: string | null;
   q: string | null;
@@ -129,6 +144,10 @@ async function hasMoreFeed({
   const count = await db
     .select({ id: curations.id })
     .from(curations)
+    .orderBy(
+      isNewest ? desc(curations.createdAt) : desc(curations.blockNumber),
+      isTrend ? desc(curations.commentCount) : sql`1=1`
+    )
     .limit(PER_PAGE)
     .offset(page * PER_PAGE);
 
@@ -137,17 +156,20 @@ async function hasMoreFeed({
 
 async function More({
   isNewest,
+  isTrend,
   type,
   page,
   q,
 }: {
   isNewest: boolean;
+  isTrend: boolean;
   page: number;
   type: string | null;
   q: string | null;
 }) {
   const hasMore = await hasMoreFeed({
     isNewest,
+    isTrend,
     type,
     page,
     q,

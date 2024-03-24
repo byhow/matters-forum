@@ -10,6 +10,7 @@ import { headers as dynamic } from "next/headers";
 const SearchParamsSchema = z.object({
   p: z.coerce.number().min(1).max(100).optional().default(1),
   newest: z.enum(["", "1"]).optional(),
+  trend: z.enum(["", "1"]).optional(),
   type: z.enum(["ask", "show", "jobs", "story"]).optional().default("story"),
 });
 
@@ -27,6 +28,7 @@ export default async function Home({
   }
 
   const isNewest = query.data.newest === "1";
+  const isTrend = query.data.trend === "1";
   const type = query.data.type;
   const page = query.data.p;
 
@@ -71,7 +73,7 @@ export default async function Home({
 
   return (
     <div>
-      <Feed page={page} isNewest={isNewest} type={type} />
+      <Feed page={page} isNewest={isNewest} isTrend={isTrend} type={type} />
     </div>
   );
 }

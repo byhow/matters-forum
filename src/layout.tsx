@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-// import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import { Suspense } from "react";
 
-export const metadata = {
+export const metadata: Metadata = {
   openGraph: {
     title: "Matters Forum",
     url: "https://matters-forum.vercel.app",

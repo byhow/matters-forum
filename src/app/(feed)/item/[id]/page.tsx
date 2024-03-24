@@ -3,7 +3,7 @@ import { TimeAgo } from "@/components/time-ago";
 import { notFound } from "next/navigation";
 import { headers } from "next/headers";
 import { nanoid } from "nanoid";
-import { sql, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { Suspense } from "react";
 import { Comments } from "@/components/comments";
 import { ReplyForm } from "./reply-form";

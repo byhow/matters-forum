@@ -47,7 +47,7 @@ export default function HNLayout({ children }: { children: React.ReactNode }) {
                     trend
                   </Link>
                 </li>
-                <li className="px-1">|</li>
+                {/* <li className="px-1">|</li>
                 <li>
                   <Link
                     prefetch={true}
@@ -56,7 +56,7 @@ export default function HNLayout({ children }: { children: React.ReactNode }) {
                   >
                     comments
                   </Link>
-                </li>
+                </li> */}
                 <li className="px-1">|</li>
                 <li>
                   <Link className="hover:underline" href="/rss">

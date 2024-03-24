@@ -8,6 +8,7 @@ import { convertIPFStoHTTPS } from "@/lib/ipfs";
 import { headers } from "next/headers";
 import { nanoid } from "nanoid";
 import { TimeAgo } from "./time-ago";
+import ArticleTitle from "./article-title";
 
 const PER_PAGE = 15;
 
@@ -75,8 +76,16 @@ export async function Feed({
                   target="_blank"
                   href={convertIPFStoHTTPS(post.uri)}
                 >
-                  {post.txHash} - {post.blockNumber}
+                  <Suspense
+                    fallback={`Loading ${post.txHash} at ${post.blockNumber}...`}
+                  >
+                    <ArticleTitle
+                      ipfsURL={convertIPFStoHTTPS(post.uri)}
+                      txHash={post.txHash}
+                    />
+                  </Suspense>
                 </a>
+
                 <span className="text-xs ml-1 text-[#666] md:text-[#828282]">
                   (ipfs.io)
                 </span>

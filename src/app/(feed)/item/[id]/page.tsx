@@ -1,4 +1,4 @@
-import { db, users, curations, comments } from "@/lib/db";
+import { db, curations } from "@/lib/db";
 import { TimeAgo } from "@/components/time-ago";
 import { notFound } from "next/navigation";
 import { headers } from "next/headers";

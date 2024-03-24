@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { curations } from "@/lib/db";
-import { desc, and, sql } from "drizzle-orm";
+import { desc, sql } from "drizzle-orm";
 import Link from "next/link";
 import { Suspense } from "react";
 import MoreLink from "./more-link";

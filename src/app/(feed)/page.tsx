@@ -38,33 +38,36 @@ export default async function Home({
     address: "0x5edebbdae7B5C79a69AaCF7873796bb1Ec664DB8",
     abi: CURATION_ABI,
     eventName: "Curation",
-    onLogs: (logs) => {
-      const decodedLogs = logs.map((log) => {
-        const decoded = decodeEventLog({
-          abi: CURATION_ABI,
-          data: log.data,
-          topics: log.topics as [signature: `0x${string}`, ...hex: Hex[]],
-        });
+    onLogs: async (logs) => {
+      const decodedLogs = await Promise.all(
+        logs.map(async (log) => {
+          const decoded = decodeEventLog({
+            abi: CURATION_ABI,
+            data: log.data,
+            topics: log.topics as [signature: `0x${string}`, ...hex: Hex[]],
+          });
 
-        if ("curator" in decoded.args) {
-          db.insert(curations)
-            .values({
-              id: genCurationId(),
-              txHash: log.transactionHash,
-              blockNumber: Number(log.blockNumber),
-              toAddress: log.address,
-              uri: decoded.args.uri,
-              amount: decoded.args.amount,
-              tokenAddress: decoded.args.token,
-            })
-            .onConflictDoNothing({
-              target: curations.txHash,
-            });
-        }
-        return decoded;
-      });
+          if ("curator" in decoded.args) {
+            await db
+              .insert(curations)
+              .values({
+                id: genCurationId(),
+                txHash: log.transactionHash,
+                blockNumber: Number(log.blockNumber),
+                toAddress: log.address,
+                uri: decoded.args.uri,
+                amount: decoded.args.amount,
+                tokenAddress: decoded.args.token,
+              })
+              .onConflictDoNothing({
+                target: curations.txHash,
+              });
+          }
+          return decoded;
+        })
+      );
 
-      db.insert(dump).values({
+      await db.insert(dump).values({
         eventDump: JSON.stringify({
           original: logs,
           updated: decodedLogs,

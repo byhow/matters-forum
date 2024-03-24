@@ -85,7 +85,6 @@ export async function Feed({
                     />
                   </Suspense>
                 </a>
-
                 <span className="text-xs ml-1 text-[#666] md:text-[#828282]">
                   (ipfs.io)
                 </span>

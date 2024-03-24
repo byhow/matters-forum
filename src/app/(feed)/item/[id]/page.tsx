@@ -8,6 +8,8 @@ import { Suspense } from "react";
 import { Comments } from "@/components/comments";
 import { ReplyForm } from "./reply-form";
 import Link from "next/link";
+import ArticleTitle from "@/components/article-title";
+import { convertIPFStoHTTPS } from "@/lib/ipfs";
 
 export const metadata = {
   openGraph: {
@@ -26,6 +28,7 @@ const getFeed = async function (idParam: string) {
         url: curations.uri,
         created_at: curations.createdAt,
         comment_count: curations.commentCount,
+        tx_hash: curations.txHash,
       })
       .from(curations)
       .where(eq(curations.id, id))
@@ -63,16 +66,26 @@ export default async function ItemPage({
             <path d="m2 27 14-29 14 29z" fill="#999" />
           </svg>
         </div>
-        <div className="flex-grow">
+        <div>
           {feed.url ? (
-            <a
-              className="text-[#000000] hover:underline"
-              rel={"nofollow noreferrer"}
-              target={"_blank"}
-              href={feed.url}
-            >
-              {feed.url}
-            </a>
+            <div className="flex flex-row">
+              <a
+                className="text-[#000000] hover:underline"
+                rel={"nofollow noreferrer"}
+                target={"_blank"}
+                href={feed.url}
+              >
+                <Suspense fallback={`Loading title...`}>
+                  <ArticleTitle
+                    ipfsURL={convertIPFStoHTTPS(feed.url)}
+                    txHash={feed.tx_hash}
+                  />
+                </Suspense>
+              </a>
+              <span className="text-xs ml-1 text-[#666] md:text-[#828282]">
+                (ipfs.io)
+              </span>
+            </div>
           ) : (
             <Link
               prefetch={true}
@@ -82,7 +95,6 @@ export default async function ItemPage({
               {feed.id}
             </Link>
           )}
-
           <p className="text-xs text-[#666] md:text-[#828282]">
             <TimeAgo now={now} date={feed.created_at} />{" "}
             <span aria-hidden={true}>| </span>

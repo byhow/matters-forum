@@ -5,10 +5,15 @@ import { Textarea } from "@/components/ui/textarea";
 import { replyAction, type ReplyActionData } from "./actions";
 import { Loader2 } from "lucide-react";
 import { useFormStatus, useFormState } from "react-dom";
-import Link from "next/link";
+import { useAccount } from "wagmi";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 
 export function ReplyForm({ curationId }: { curationId: string }) {
-  const [state, formAction] = useFormState(replyAction, {});
+  const account = useAccount();
+  // console.log(`Account was fetched: ${JSON.stringify(account, null, 2)}`);
+  const [state, formAction] = useFormState(replyAction, {
+    address: account.address,
+  });
 
   return (
     <form action={formAction}>
@@ -25,7 +30,7 @@ function ReplyFormFields({
   curationId: string;
 }) {
   const { pending } = useFormStatus();
-
+  const { openConnectModal } = useConnectModal();
   return (
     <div key={commentId} className="flex flex-col gap-2">
       <input type="hidden" name="curationId" value={curationId} />
@@ -33,7 +38,7 @@ function ReplyFormFields({
       <div className="flex flex-col gap-1">
         <Textarea
           name="text"
-          className="w-full text-base bg-white"
+          className="w-full bg-white text-base"
           placeholder="Write a reply..."
           rows={4}
           onKeyDown={(e) => {
@@ -50,27 +55,31 @@ function ReplyFormFields({
         error &&
         "fieldErrors" in error &&
         error.fieldErrors.text != null ? (
-          <div className="text-red-500 text-sm">{error.fieldErrors.text}</div>
+          <div className="text-sm text-red-500">{error.fieldErrors.text}</div>
         ) : null}
       </div>
 
-      <div className="flex gap-2 items-center">
-        <Button disabled={pending} className="p-0 h-8 px-4">
+      <div className="flex items-center gap-2">
+        <Button disabled={pending} className="h-8 p-0 px-4">
           {pending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
           Submit
         </Button>
         {error &&
           "message" in error &&
           (error.code === "AUTH_ERROR" ? (
-            <span className="text-red-500 text-sm">
-              You must be{" "}
-              <Link className="text-red-800 hover:underline" href="/sign-in">
-                logged in
-              </Link>{" "}
+            <span className="text-sm text-red-500">
+              You must{" "}
+              <button
+                className="text-red-800 hover:underline"
+                onClick={openConnectModal}
+                type="button"
+              >
+                connect your wallet
+              </button>{" "}
               to reply.
             </span>
           ) : (
-            <span className="text-red-500 text-sm">{error.message}</span>
+            <span className="text-sm text-red-500">{error.message}</span>
           ))}
       </div>
     </div>

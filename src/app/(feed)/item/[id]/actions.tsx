@@ -1,7 +1,14 @@
 "use server";
 
 import z from "zod";
-import { db, users, curations, comments, genCommentId } from "@/lib/db";
+import {
+  db,
+  users,
+  curations,
+  comments,
+  genCommentId,
+  genUserId,
+} from "@/lib/db";
 import { eq, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { newCommentRateLimit } from "@/lib/rate-limit";
@@ -12,6 +19,7 @@ const ReplyActionSchema = z.object({
 });
 
 export type ReplyActionData = {
+  address?: string;
   commentId?: string;
   error?:
     | {
@@ -35,12 +43,11 @@ export type ReplyActionData = {
 };
 
 export async function replyAction(
-  _prevState: any,
+  prevState: ReplyActionData,
   formData: FormData
-): Promise<ReplyActionData | void> {
-  const { userId } = { userId: "" };
-
-  if (!userId) {
+): Promise<ReplyActionData> {
+  // console.log(prevState);
+  if (!prevState.address) {
     return {
       error: {
         code: "AUTH_ERROR",
@@ -49,10 +56,12 @@ export async function replyAction(
     };
   }
 
-  const data = ReplyActionSchema.safeParse({
+  const clientForm = {
     curationId: formData.get("curationId"),
     text: formData.get("text"),
-  });
+  };
+
+  const data = ReplyActionSchema.safeParse(clientForm);
 
   if (!data.success) {
     return {
@@ -63,17 +72,25 @@ export async function replyAction(
     };
   }
 
-  const user = (
-    await db.select().from(users).where(eq(users.id, userId)).limit(1)
+  let user = (
+    await db
+      .select()
+      .from(users)
+      .where(eq(users.web3Address, prevState.address))
+      .limit(1)
   )[0];
 
   if (!user) {
-    return {
-      error: {
-        code: "INTERNAL_ERROR",
-        message: "User not found",
-      },
-    };
+    // first time user
+    user = (
+      await db
+        .insert(users)
+        .values({
+          id: genUserId(),
+          web3Address: prevState.address,
+        })
+        .returning()
+    )[0];
   }
 
   const rl = await newCommentRateLimit.limit(user.id);
@@ -86,6 +103,7 @@ export async function replyAction(
       },
     };
   }
+  const commentId = genCommentId();
 
   // TODO: use transactions, but Neon doesn't support them yet
   // in the serverless http driver :raised-eyebrow:
@@ -112,8 +130,6 @@ export async function replyAction(
         })
         .where(eq(curations.id, feed.id));
 
-      const commentId = genCommentId();
-
       await tx.insert(comments).values({
         id: commentId,
         curationId: feed.id,
@@ -135,4 +151,8 @@ export async function replyAction(
       };
     }
   });
+
+  return {
+    commentId,
+  };
 }

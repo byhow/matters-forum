@@ -36,8 +36,11 @@ For an MVP, let's start with:
 - minimal websocket indexer to index events ✅
   - along with a title for the CID (experimental)
 - fullstack app:
-  - frontend to get posts from db
-  - backend api for default sorting by blocknumber
+  - frontend to get posts from db ✅
+  - backend api for default sorting by blocknumber ✅
+  - comment with auth
+  - see comments that you posted after you connect wallet
+  - /newest, /trend (by comment count)
 
 Project Architecture
 - auth: no protected route, just need to connect wallet to comment

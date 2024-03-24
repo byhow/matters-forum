@@ -59,8 +59,8 @@ Ran into some crazy vercel issue that doesn't emit any logs and unable to find p
 Remaining TODOs:
 - [x] queryselect the `<h1>` tag of the html and populate them
 - [ ] add search
-- [ ] cron to insert logs
-- [ ] add skeleton `npx shadcn-ui@latest add skeleton`
+- [x] cron to insert logs
+- [ ] add skeleton `npx shadcn-ui@latest add skeleton` for title
 - [ ] filter by user comments (when connected by wallet)
 - [ ] fix that weird hydration error
 - [x] add sorting for price

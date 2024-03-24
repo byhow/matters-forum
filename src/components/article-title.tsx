@@ -1,12 +1,14 @@
 import { load } from "cheerio";
+import Highlighter from "react-highlight-words";
 
 type Props = {
   ipfsURL: string;
   txHash: string;
   timeout?: number;
+  q?: string | null;
 };
 
-const DEFAULT_ERROR = "Public IPFS Gateway wont load URL.";
+const DEFAULT_ERROR = "Public IPFS Gateway won't load content.";
 
 const fetchIpfsTitle = async (
   ipfsURL: string,
@@ -30,7 +32,10 @@ const fetchIpfsTitle = async (
     } else {
       throw error;
     }
-    return `${DEFAULT_ERROR} Here is the txHash: ${txHash}`;
+    return `${DEFAULT_ERROR} txHash: ${txHash.slice(0, 5)}...${txHash.slice(
+      txHash.length - 6,
+      txHash.length - 1
+    )}`;
   } finally {
     clearTimeout(timeoutId);
   }
@@ -46,6 +51,7 @@ export default async function ArticleTitle({
   ipfsURL,
   txHash,
   timeout,
+  q = null,
 }: Props) {
   const html = await fetchIpfsTitle(ipfsURL, txHash, timeout);
   let title: string = html;
@@ -54,5 +60,9 @@ export default async function ArticleTitle({
     title = extractTitle(html);
   }
 
-  return <p>{title}</p>;
+  return q === null ? (
+    <p>{title}</p>
+  ) : (
+    <Highlighter searchWords={[q]} autoEscape={true} textToHighlight={title} />
+  );
 }

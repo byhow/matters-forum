@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import Link from "next/link";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { SearchInput } from "@/components/search-bar";
 
 export const metadata = {
   openGraph: {
@@ -101,13 +102,13 @@ export default function HNLayout({ children }: { children: React.ReactNode }) {
             </li>
           </ul>
         </nav>
-        {/* <div className="w-full max-w-md mx-auto mt-2 ">
+        <div className="w-full max-w-md mx-auto mt-2 ">
           <form>
             <div className="relative flex justify-center">
               <SearchInput />
             </div>
           </form>
-        </div> */}
+        </div>
       </footer>
     </div>
   );

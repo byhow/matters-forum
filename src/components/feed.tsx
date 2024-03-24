@@ -75,25 +75,27 @@ export async function Feed({
               <span className="align-top text-[#666] md:text-[#828282] text-right flex-shrink-0 min-w-6 md:min-w-5">
                 {n + (page - 1) * PER_PAGE + 1}.
               </span>
-              <div className="flex-grow">
-                <a
-                  className="text-[#000000] hover:underline"
-                  rel="nofollow noreferrer"
-                  target="_blank"
-                  href={convertIPFStoHTTPS(post.uri)}
-                >
-                  <Suspense
-                    fallback={`Loading ${post.txHash} at ${post.blockNumber}...`}
+              <div>
+                <div className="flex flex-row">
+                  <a
+                    className="text-[#000000] hover:underline"
+                    rel="nofollow noreferrer"
+                    target="_blank"
+                    href={convertIPFStoHTTPS(post.uri)}
                   >
-                    <ArticleTitle
-                      ipfsURL={convertIPFStoHTTPS(post.uri)}
-                      txHash={post.txHash}
-                    />
-                  </Suspense>
-                </a>
-                <span className="text-xs ml-1 text-[#666] md:text-[#828282]">
-                  (ipfs.io)
-                </span>
+                    <Suspense
+                      fallback={`Loading ${post.txHash} at ${post.blockNumber}...`}
+                    >
+                      <ArticleTitle
+                        ipfsURL={convertIPFStoHTTPS(post.uri)}
+                        txHash={post.txHash}
+                      />
+                    </Suspense>
+                  </a>
+                  <span className="text-xs ml-1 text-[#666] md:text-[#828282]">
+                    (ipfs.io)
+                  </span>
+                </div>
                 <p className="text-xs text-[#666] md:text-[#828282]">
                   <TimeAgo now={Date.now()} date={post.createdAt} /> |{" "}
                   <span

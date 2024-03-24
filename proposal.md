@@ -58,10 +58,9 @@ Ran into some crazy vercel issue that doesn't emit any logs and unable to find p
 3/23
 Remaining TODOs:
 - [x] queryselect the `<h1>` tag of the html and populate them
-- [ ] add search
+- [ ] add search - TODO: needs to index title, which cant do in public gateway
 - [x] cron to insert logs
 - [x] add skeleton `npx shadcn-ui@latest add skeleton` for title - not needed
-- [ ] filter by user comments (when connected by wallet)
 - [ ] fix that weird hydration error
 - [x] add sorting for price
 - [x] maybe a loading state for the title (not grabbing all the feed at once)

@@ -9,6 +9,10 @@ const nextConfig = {
       source: "/trend",
       destination: "/?trend=1",
     },
+    {
+      source: '/priciest',
+      destination: '/?priciest=1'
+    }
   ]
 };
 

@@ -9,18 +9,21 @@ import { headers } from "next/headers";
 import { nanoid } from "nanoid";
 import { TimeAgo } from "./time-ago";
 import ArticleTitle from "./article-title";
+import { formatGwei } from "viem";
 
 const PER_PAGE = 15;
 
 export async function getFeed({
   isNewest,
   isTrend,
+  isPriciest,
   page,
   type,
   limit = PER_PAGE,
 }: {
   isNewest: boolean;
   isTrend: boolean;
+  isPriciest: boolean;
   page: number;
   type: string | null;
   limit?: number;
@@ -30,7 +33,8 @@ export async function getFeed({
     .from(curations)
     .orderBy(
       isNewest ? desc(curations.createdAt) : desc(curations.blockNumber),
-      isTrend ? desc(curations.commentCount) : sql`1=1`
+      isTrend ? desc(curations.commentCount) : sql`1=1`,
+      isPriciest ? desc(curations.amount) : sql`1=1`
     )
     .limit(PER_PAGE)
     .offset((page - 1) * limit);
@@ -40,6 +44,7 @@ type Props = {
   page?: number;
   isNewest?: boolean;
   isTrend?: boolean;
+  isPriciest?: boolean;
   type?: string | null;
   q?: string | null;
 };
@@ -47,13 +52,14 @@ type Props = {
 export async function Feed({
   page = 1,
   isNewest = false,
+  isPriciest = false,
   isTrend = false,
   type = null,
   q = null,
 }: Props) {
   const uid = headers().get("x-vercel-id") ?? nanoid();
   console.time(`fetch stories ${uid}`);
-  const feed = await getFeed({ page, isNewest, isTrend, type });
+  const feed = await getFeed({ page, isNewest, isPriciest, isTrend, type });
   console.timeEnd(`fetch stories ${uid}`);
 
   return feed.length ? (
@@ -69,7 +75,7 @@ export async function Feed({
               <span className="align-top text-[#666] md:text-[#828282] text-right flex-shrink-0 min-w-6 md:min-w-5">
                 {n + (page - 1) * PER_PAGE + 1}.
               </span>
-              <div>
+              <div className="flex-grow">
                 <a
                   className="text-[#000000] hover:underline"
                   rel="nofollow noreferrer"
@@ -98,13 +104,15 @@ export async function Feed({
                     tag
                   </span>{" "}
                   |{" "}
-                  <span
-                    className="cursor-default"
-                    aria-hidden="true"
-                    title="Not implemented"
-                  >
-                    hide
-                  </span>{" "}
+                  {!!post.amount && (
+                    <span
+                      className="cursor-default"
+                      aria-hidden="true"
+                      title="Price"
+                    >
+                      {formatGwei(post.amount)} ETH
+                    </span>
+                  )}{" "}
                   |{" "}
                   <Link
                     prefetch={true}
@@ -124,6 +132,7 @@ export async function Feed({
           <More
             page={page}
             isNewest={isNewest}
+            isPriciest={isPriciest}
             isTrend={isTrend}
             type={type}
             q={q}
@@ -139,12 +148,14 @@ export async function Feed({
 async function hasMoreFeed({
   isNewest,
   isTrend,
+  isPriciest,
   type,
   page,
   q,
 }: {
   isNewest: boolean;
   isTrend: boolean;
+  isPriciest: boolean;
   page: number;
   type: string | null;
   q: string | null;
@@ -154,7 +165,8 @@ async function hasMoreFeed({
     .from(curations)
     .orderBy(
       isNewest ? desc(curations.createdAt) : desc(curations.blockNumber),
-      isTrend ? desc(curations.commentCount) : sql`1=1`
+      isTrend ? desc(curations.commentCount) : sql`1=1`,
+      isPriciest ? desc(curations.amount) : sql`1=1`
     )
     .limit(PER_PAGE)
     .offset(page * PER_PAGE);
@@ -165,11 +177,13 @@ async function hasMoreFeed({
 async function More({
   isNewest,
   isTrend,
+  isPriciest,
   type,
   page,
   q,
 }: {
   isNewest: boolean;
+  isPriciest: boolean;
   isTrend: boolean;
   page: number;
   type: string | null;
@@ -178,6 +192,7 @@ async function More({
   const hasMore = await hasMoreFeed({
     isNewest,
     isTrend,
+    isPriciest,
     type,
     page,
     q,

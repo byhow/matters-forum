@@ -22,7 +22,7 @@ I have around 30 hours of time to work on this until Sunday 11:59pm on Mar. 24th
 - [x] (mvp done) 6hr on IPFS indexer (a separate service) 
 - [x] 6hr on a skeleton platform (sorting, searching, etc)
 - [x] 6hr on Auth + web address verification
-- [x] 6hr on integration
+- [ ] 6hr on integration
 - [ ] 4hr leeway
 
 And I probably won't be able to work the full 30 hours time anyways, but the plan will looks like this. A rough pick on the tech stack:
@@ -57,9 +57,11 @@ Ran into some crazy vercel issue that doesn't emit any logs and unable to find p
 
 3/23
 Remaining TODOs:
-- [ ] queryselect the `<h1>` tag of the html and populate them
+- [x] queryselect the `<h1>` tag of the html and populate them
+- [ ] add search
+- [ ] cron to insert logs
+- [ ] add skeleton `npx shadcn-ui@latest add skeleton`
 - [ ] filter by user comments (when connected by wallet)
 - [ ] fix that weird hydration error
-- [ ] add sorting for price
-- [ ] upvote/downvote maybe
-- [ ] maybe a loading state for the title (not grabbing all the feed at once)
+- [x] add sorting for price
+- [x] maybe a loading state for the title (not grabbing all the feed at once)

@@ -46,7 +46,6 @@ export async function replyAction(
   prevState: ReplyActionData,
   formData: FormData
 ): Promise<ReplyActionData> {
-  // console.log(prevState);
   if (!prevState.address) {
     return {
       error: {
@@ -104,9 +103,6 @@ export async function replyAction(
     };
   }
   const commentId = genCommentId();
-
-  // TODO: use transactions, but Neon doesn't support them yet
-  // in the serverless http driver :raised-eyebrow:
   await db.transaction(async (tx) => {
     try {
       const feed = (

@@ -5,7 +5,7 @@
 This is the [matters.town](https://matters.town/) coding challenge. It consists of two parts:
 
 - [Code Challenge](./CodeChallenge.md)
-- [Written Challenge](./WrittenChallenge.md)
+- [Written Challenge](./WrittenChallenge.md) - the key to the writing challenge is [here](./writing-challenge-keys.md)
 
 The guide has asked to make something interesting, so I replicated some workflows that I would personally like to see if I were to make apps or improvements on top of the matters app. This app is fully deployed on [matters-forum.vercel.app](https://matters-forum.vercel.app)
 

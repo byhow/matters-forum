@@ -22,11 +22,20 @@ When the users first access the page, they will see a hackernews-esque interface
 
 Once you click on the title of the post, it will lead you to the destinated IPFS content, just like the hackernews interface. Clicking on `<> comments` will lead you to the items page, which you would be able to write a reply if you connect your wallet to this app. You can also see others reply there.
 
+There are 3 main routes to this app:
+
+- `/` & `/newest` - rank posts by either creation date or block number
+- `/trend` - this ranks the post by the number of comments it have
+- `/priciest` - this ranks the post by the `amount` of donation onchain
+- `/api/rss` - the xml for rss reader to subscribe to.
+
 You can check the database schema [here](./src/lib/db.schema.ts), but a brief overview will be 3 tables in postgres:
 
 - curations
 - comments
 - users
+
+Each are pretty self-explanatory. The interface pretty much replicated hackernews, so if there's confusion, feel free to compare both of them.
 
 ## Key features
 

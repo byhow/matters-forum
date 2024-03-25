@@ -52,6 +52,7 @@ Each are pretty self-explanatory. The interface pretty much replicated hackernew
 ## Showcase
 ![Feed](./feed.png)
 ![Metamask connect](./mm.png)
+![Rank By Price](./rank-by-price.png)
 ![RSS Feed](./rss.png)
 
 ## Tech Stack

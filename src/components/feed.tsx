@@ -32,9 +32,9 @@ export async function getFeed({
     .select()
     .from(curations)
     .orderBy(
-      isNewest ? desc(curations.createdAt) : desc(curations.blockNumber),
-      isTrend ? desc(curations.commentCount) : sql`1=1`,
       isPriciest ? desc(curations.amount) : sql`1=1`,
+      isTrend ? desc(curations.commentCount) : sql`1=1`,
+      isNewest ? desc(curations.createdAt) : desc(curations.blockNumber)
     )
     .limit(PER_PAGE)
     .offset((page - 1) * limit);
@@ -167,7 +167,7 @@ async function hasMoreFeed({
     .orderBy(
       isNewest ? desc(curations.createdAt) : desc(curations.blockNumber),
       isTrend ? desc(curations.commentCount) : sql`1=1`,
-      isPriciest ? desc(curations.amount) : sql`1=1`,
+      isPriciest ? desc(curations.amount) : sql`1=1`
     )
     .limit(PER_PAGE)
     .offset(page * PER_PAGE);

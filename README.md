@@ -20,7 +20,7 @@ With [viem.sh](https://viem.sh/), the `Curation` event on optimism is constantly
 
 When the users first access the page, they will see a hackernews-esque interface with page limit of `15` posts. The `More` button at the bottom will run the next page of posts. Some of the title may not load because I was using a free IPFS gateway, which is very unstable to public access. Things should work smoothly if switched over to the paid plans.
 
-Once you click on the title of the post, it will lead you to the destinated IPFS content, just like the hackernews interface. Clicking on `<> comments` will lead you to the items page, which you would be able to write a reply if you connect your wallet to this app. You can also see others reply there.
+Once you click on the title of the post, it will lead you to the destined IPFS content, just like the hackernews interface. Clicking on `<> comments` will lead you to the items page, which you would be able to write a reply if you connect your wallet to this app. You can also see others reply there.
 
 There are 3 main routes to this app:
 
@@ -50,6 +50,9 @@ Each are pretty self-explanatory. The interface pretty much replicated hackernew
 - _Type Safety_: Server Action + Zod to achieve fullstack type safety
 
 ## Showcase
+![Feed](./feed.png)
+![Metamask connect](./mm.png)
+![RSS Feed](./rss.png)
 
 ## Tech Stack
 
@@ -90,7 +93,7 @@ Each are pretty self-explanatory. The interface pretty much replicated hackernew
 
 Lots of the limitation is around:
 
-- public IPFS gateway - can't index titles at all, have to make it pesimistic from the client
+- public IPFS gateway - can't index titles at all, have to make it pessimistic from the client
 - wallet connect + auth - right now the auth is only client side. The next-auth doc for a full auth layer is outdated for app router, so it requires a complete remake for the tools.
 
 I pretty much have to learn everything from the ground up as my web3 dev experience is still lagging behind in 2022 + next page router. A lot has changed in the past 2 years, and this honestly has been pretty challenging to implement. I've rarely done something this unknown in the past, but it was fun to dig through the docs and find possible integration in between. And I am really impressed about how much the React ecosystem can offer, I mean this is crazy to integrate and things actually broke only 5 or 6 times through out the process with is not bad for web3 dev where everything is incompatible with each other and all those unmet peer deps, etc.

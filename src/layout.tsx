@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Suspense } from "react";
+import { AxiomWebVitals } from "next-axiom";
 
 export const metadata: Metadata = {
   openGraph: {
@@ -17,6 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <AxiomWebVitals />
       <body>
         <Suspense fallback={null}>{children}</Suspense>
       </body>

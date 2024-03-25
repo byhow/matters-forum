@@ -1,5 +1,6 @@
+import { withAxiom } from 'next-axiom';
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+const nextConfig = withAxiom({
   rewrites: () => [
     {
       source: "/newest",
@@ -14,6 +15,6 @@ const nextConfig = {
       destination: '/?priciest=1'
     }
   ]
-};
+});
 
 export default nextConfig;

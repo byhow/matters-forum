@@ -7,10 +7,12 @@ import { Loader2 } from "lucide-react";
 import { useFormStatus, useFormState } from "react-dom";
 import { useAccount } from "wagmi";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { useLogger } from "next-axiom";
 
 export function ReplyForm({ curationId }: { curationId: string }) {
   const account = useAccount();
-  // console.log(`Account was fetched: ${JSON.stringify(account, null, 2)}`);
+  const log = useLogger();
+  log.info(`Account was fetched: ${JSON.stringify(account, null, 2)}`);
   const [state, formAction] = useFormState(replyAction, {
     address: account.address,
   });

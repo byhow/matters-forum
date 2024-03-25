@@ -1,8 +1,9 @@
 import { indexExampleFilteredLogs } from "@/lib/optimism";
-import { NextRequest } from "next/server";
+import { withAxiom, AxiomRequest } from "next-axiom";
 
-export async function GET(req: NextRequest) {
-  console.debug(`${req.url} running cron...`)
+
+export const GET = withAxiom(async (req: AxiomRequest) => {
+  req.log.info(`${req.url} running cron...`)
   try {
     await indexExampleFilteredLogs()
   } catch {
@@ -10,4 +11,4 @@ export async function GET(req: NextRequest) {
   }
 
   return Response.json({ message: "success" }, { status: 200 });
-}
+});

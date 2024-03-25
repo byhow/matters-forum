@@ -1,5 +1,6 @@
 "use client"; // Error components must be Client Components
 
+import { useLogger } from "next-axiom";
 import { useEffect } from "react";
 
 export default function Error({
@@ -9,10 +10,11 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const log = useLogger();
   useEffect(() => {
     // Log the error to an error reporting service
-    console.error(error);
-  }, [error]);
+    log.error(`Error fetching the feed`, error);
+  }, [error, log]);
 
   return (
     <div>

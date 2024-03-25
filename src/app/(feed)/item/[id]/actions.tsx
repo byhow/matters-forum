@@ -12,6 +12,7 @@ import {
 import { eq, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { newCommentRateLimit } from "@/lib/rate-limit";
+import { Logger } from "next-axiom";
 
 const ReplyActionSchema = z.object({
   curationId: z.string(),
@@ -46,6 +47,7 @@ export async function replyAction(
   prevState: ReplyActionData,
   formData: FormData
 ): Promise<ReplyActionData> {
+  const log = new Logger();
   if (!prevState.address) {
     return {
       error: {
@@ -138,7 +140,10 @@ export async function replyAction(
         commentId,
       };
     } catch (err) {
-      console.error(err);
+      log.error(
+        `Error updating comments for a particular curation`,
+        err as Error
+      );
       return {
         error: {
           code: "INTERNAL_ERROR",

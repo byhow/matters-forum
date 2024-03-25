@@ -1,4 +1,5 @@
 import { load } from "cheerio";
+import { Logger } from "next-axiom";
 import Highlighter from "react-highlight-words";
 
 type Props = {
@@ -15,6 +16,7 @@ const fetchIpfsTitle = async (
   txHash: string,
   timeout = 5000
 ) => {
+  const log = new Logger();
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeout);
 
@@ -26,7 +28,7 @@ const fetchIpfsTitle = async (
     // do the parsing
   } catch (error) {
     if (error instanceof Error && error.name === "AbortError") {
-      console.error(
+      log.error(
         `It took too long. We are using an public IPFS gateway, so it happens. ipfs address is ${ipfsURL}`
       );
     } else {

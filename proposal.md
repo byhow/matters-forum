@@ -19,7 +19,7 @@ That being said, it is time to set some requirements and scope for this project.
 I have around 30 hours of time to work on this until Sunday 11:59pm on Mar. 24th, and for some simple project management, a rough estimate for this roadmap:
 
 - [x] 2hr on scaffolding everything and make initial deployment
-- [x] (mvp done) 6hr on IPFS indexer (a separate service) 
+- [x] (mvp done) 6hr on IPFS indexer (a separate service)
 - [x] 6hr on a skeleton platform (sorting, searching, etc)
 - [x] 6hr on Auth + web address verification
 - [x] 6hr on integration
@@ -43,20 +43,22 @@ For an MVP, let's start with:
   - /newest, /trend (by comment count)
 
 Project Architecture
+
 - auth: no protected route, just need to connect wallet to comment
   - also show posts that the connected wallet user has (fake login)
 - db: postgres on supabase + drizzle
 - cache: vercel kv + upstash rate-limit lib
-- web3 layer: 
+- web3 layer:
 - ipfs: helia, kind of the only option here
-- payment? if any
 - ui: tailwind shadcn + lucide
+- log: axiom
 
 3/21
 Ran into some crazy vercel issue that doesn't emit any logs and unable to find package.json. I have to remove all the api routes + purge node cache at this moment to fix it, but it happens on and off for no reasons.
 
 3/23
 Remaining TODOs:
+
 - [x] queryselect the `<h1>` tag of the html and populate them
 - [x] add search - TODO: needs to index title, which cant do in public gateway
 - [x] cron to insert logs

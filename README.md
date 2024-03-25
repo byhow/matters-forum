@@ -50,9 +50,16 @@ Each are pretty self-explanatory. The interface pretty much replicated hackernew
 - _Type Safety_: Server Action + Zod to achieve fullstack type safety
 
 ## Showcase
+### Default feed:
 ![Feed](./feed.png)
+
+### Connect wallet:
 ![Metamask connect](./mm.png)
+
+### Rank by Price:
 ![Rank By Price](./rank-by-price.png)
+
+### RSS Feed:
 ![RSS Feed](./rss.png)
 
 ## Tech Stack

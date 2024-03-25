@@ -6,6 +6,7 @@ import { type Hex, decodeEventLog } from "viem";
 import { Feed } from "@/components/feed";
 import z from "zod";
 import { headers as dynamic } from "next/headers";
+import { Suspense } from "react";
 
 const SearchParamsSchema = z.object({
   p: z.coerce.number().min(1).max(100).optional().default(1),
@@ -64,7 +65,7 @@ export default async function Home({
               });
           }
           return decoded;
-        })
+        }),
       );
 
       await db.insert(dump).values({
@@ -77,7 +78,7 @@ export default async function Home({
   });
 
   return (
-    <div>
+    <Suspense fallback={null}>
       <Feed
         page={page}
         isNewest={isNewest}
@@ -85,6 +86,6 @@ export default async function Home({
         isPriciest={isPriciest}
         type={type}
       />
-    </div>
+    </Suspense>
   );
 }

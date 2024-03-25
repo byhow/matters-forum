@@ -34,7 +34,7 @@ export async function getFeed({
     .orderBy(
       isNewest ? desc(curations.createdAt) : desc(curations.blockNumber),
       isTrend ? desc(curations.commentCount) : sql`1=1`,
-      isPriciest ? desc(curations.amount) : sql`1=1`
+      isPriciest ? desc(curations.amount) : sql`1=1`,
     )
     .limit(PER_PAGE)
     .offset((page - 1) * limit);
@@ -64,15 +64,14 @@ export async function Feed({
 
   return feed.length ? (
     <div>
-      <ul className="space-y-2 list-disc">
+      <ul className="list-disc space-y-2">
         {feed.map(async (post, n) => {
           if (!post.uri) {
             return null;
           }
-          // const meta = await getArticleMetadata(convertIPFStoHTTPS(post.uri));
           return (
             <li key={post.id} className="flex gap-2">
-              <span className="align-top text-[#666] md:text-[#828282] text-right flex-shrink-0 min-w-6 md:min-w-5">
+              <span className="min-w-6 flex-shrink-0 text-right align-top text-[#666] md:min-w-5 md:text-[#828282]">
                 {n + (page - 1) * PER_PAGE + 1}.
               </span>
               <div>
@@ -92,7 +91,7 @@ export async function Feed({
                       />
                     </Suspense>
                   </a>
-                  <span className="text-xs ml-1 text-[#666] md:text-[#828282]">
+                  <span className="ml-1 text-xs text-[#666] md:text-[#828282]">
                     (ipfs.io)
                   </span>
                 </div>
@@ -129,7 +128,7 @@ export async function Feed({
           );
         })}
       </ul>
-      <div className="mt-4 ml-7">
+      <div className="ml-7 mt-4">
         <Suspense fallback={null}>
           <More
             page={page}
@@ -168,7 +167,7 @@ async function hasMoreFeed({
     .orderBy(
       isNewest ? desc(curations.createdAt) : desc(curations.blockNumber),
       isTrend ? desc(curations.commentCount) : sql`1=1`,
-      isPriciest ? desc(curations.amount) : sql`1=1`
+      isPriciest ? desc(curations.amount) : sql`1=1`,
     )
     .limit(PER_PAGE)
     .offset(page * PER_PAGE);

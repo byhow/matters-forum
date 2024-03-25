@@ -1,7 +1,6 @@
-import { Suspense } from "react";
 import Link from "next/link";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { SearchInput } from "@/components/search-bar";
+import ConnectWalletButton from "@/components/rainbow-button";
 
 export const metadata = {
   openGraph: {
@@ -13,22 +12,22 @@ export const metadata = {
 
 export default function HNLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="md:px-20 md:py-2 flex flex-col h-screen text-[15px] leading-[18px]">
-      <header className="flex items-center justify-between py-2 md:py-1 px-1 pr-2 bg-green-700 text-sm gap-2">
+    <div className="flex h-screen flex-col text-[15px] leading-[18px] md:px-20 md:py-2">
+      <header className="flex items-center justify-between gap-2 bg-green-700 px-1 py-2 pr-2 text-sm md:py-1">
         <div className="flex items-center">
           <Link prefetch={true} href="/">
-            <span className="border border-white p-1 mr-2 text-white w-6 h-6 flex-shrink-0 flex items-center justify-center">
+            <span className="mr-2 flex h-6 w-6 flex-shrink-0 items-center justify-center border border-white p-1 text-white">
               <span>M</span>
             </span>
           </Link>
-          <div className="flex flex-col md:flex-row items-start md:items-center">
+          <div className="flex flex-col items-start md:flex-row md:items-center">
             <Link prefetch={true} href="/" className="mr-3">
-              <h1 className="text-base font-bold leading-tight whitespace-nowrap">
+              <h1 className="whitespace-nowrap text-base font-bold leading-tight">
                 Matters Forum
               </h1>
             </Link>
             <nav>
-              <ul className="inline-flex leading-tight tracking-tight flex-wrap">
+              <ul className="inline-flex flex-wrap leading-tight tracking-tight">
                 <li>
                   <Link
                     prefetch={true}
@@ -68,24 +67,21 @@ export default function HNLayout({ children }: { children: React.ReactNode }) {
             </nav>
           </div>
         </div>
-        <div className="flex flex-col md:flex-row items-end min-w-[30%] md:min-w-[inherit] md:items-center">
-          <Suspense fallback={null}>
-            {/** TODO: implement custom button for sizing and theming */}
-            <ConnectButton label="Connect" />
-          </Suspense>
+        <div className="flex min-w-[30%] flex-col items-end md:min-w-[inherit] md:flex-row md:items-center">
+          <ConnectWalletButton label="Connect" />
         </div>
       </header>
 
-      <main className="py-4 px-1 md:px-2 flex-grow bg-[#f6f6ef]">
+      <main className="flex-grow bg-[#f6f6ef] px-1 py-4 md:px-2">
         {children}
       </main>
 
       <footer
-        className="flex flex-col items-center justify-center p-4 border-t-2 border-green-700
-              text-black bg-[#f6f6ef]"
+        className="flex flex-col items-center justify-center border-t-2 border-green-700 bg-[#f6f6ef]
+              p-4 text-black"
       >
         <nav>
-          <ul className="flex flex-wrap justify-center gap-1 md:gap-2 text-sm">
+          <ul className="flex flex-wrap justify-center gap-1 text-sm md:gap-2">
             <li>
               <span className="cursor-default">Guidelines</span>
             </li>
@@ -102,7 +98,7 @@ export default function HNLayout({ children }: { children: React.ReactNode }) {
             </li>
           </ul>
         </nav>
-        <div className="w-full max-w-md mx-auto mt-2 ">
+        <div className="mx-auto mt-2 w-full max-w-md ">
           <form>
             <div className="relative flex justify-center">
               <SearchInput />

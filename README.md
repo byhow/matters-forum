@@ -65,6 +65,8 @@ Each are pretty self-explanatory. The interface pretty much replicated hackernew
 ## Tech Stack
 
 - [Next.js](https://nextjs.org) - mega react framework
+- [Drizzle ORM](https://orm.drizzle.team/) & [Drizzle Kit](https://orm.drizzle.team/kit-docs/overview)- very handy ORM for all types of db and drizzle studio
+- [React Query](https://tanstack.com/) - you cant run away from it
 - [RainbowKit](https://www.rainbowkit.com/) - wallet connect
 - [viem.sh](https://viem.sh/) - event listener + filter
 - [Wagmi](https://wagmi.sh/) - client side eth interaction

@@ -93,6 +93,10 @@ Lots of the limitation is around:
 - public IPFS gateway - can't index titles at all, have to make it pesimistic from the client
 - wallet connect + auth - right now the auth is only client side. The next-auth doc for a full auth layer is outdated for app router, so it requires a complete remake for the tools.
 
+I pretty much have to learn everything from the ground up as my web3 dev experience is still lagging behind in 2022 + next page router. A lot has changed in the past 2 years, and this honestly has been pretty challenging to implement. I've rarely done something this unknown in the past, but it was fun to dig through the docs and find possible integration in between. And I am really impressed about how much the React ecosystem can offer, I mean this is crazy to integrate and things actually broke only 5 or 6 times through out the process with is not bad for web3 dev where everything is incompatible with each other and all those unmet peer deps, etc.
+
+Only thing is that I've not done extensive documentation for the code in jsdoc, but most of them are pretty self-explanatory and are react components anyways. I do have a lot of commented out code that I have not used, but that was because I want to continue to work on this project after this was done. I am happy that I was able to make this little almost hackathon project from the ground up. When I started working on this, I still can't figure out what most of the app router is supposed to be doing and those weird server/client side components and their intermingleness.
+
 ## Contributing
 
 To contribute, fork the repository and create a feature branch. Test your changes, and if possible, open an issue for discussion before submitting a pull request. Follow project guidelines, and welcome feedback to ensure a smooth integration of your contributions. Your pull requests are warmly welcome.

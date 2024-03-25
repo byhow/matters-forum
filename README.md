@@ -27,7 +27,7 @@ There are 3 main routes to this app:
 - `/` & `/newest` - rank posts by either creation date or block number
 - `/trend` - this ranks the post by the number of comments it have
 - `/priciest` - this ranks the post by the `amount` of donation onchain
-- `/api/rss` - the xml for rss reader to subscribe to.
+- `/api/rss` - the xml for rss reader to subscribe to. You can also access the content on `/rss`
 
 You can check the database schema [here](./src/lib/db.schema.ts), but a brief overview will be 3 tables in postgres:
 
@@ -39,13 +39,59 @@ Each are pretty self-explanatory. The interface pretty much replicated hackernew
 
 ## Key features
 
+- _Wallet Connect_: use rainbowkit + wagmi.sh + viem.sh for onchain interaction + to comment
+- _Sorting_: order by price, creation date, comment count, etc
+- _Comment_: interact with the posts after you connect wallet address
+- _rss_: subscribe to the feed through web1 fashion
+- _Server-side-rendering_: through nextjs App router, brings in a state of the art fullstack experience.
+- _Rate limiting_: redis on vercel KV can limit the amount of comments
+- _ORM_: Drizzle DB + Postgres @ Supabase for effortless database and API integration
+- _Styling_: tailwindCSS + Shadcn + Lucide for modern looks of UI
+- _Type Safety_: Server Action + Zod to achieve fullstack type safety
+
 ## Showcase
 
 ## Tech Stack
 
+- [Next.js](https://nextjs.org) - mega react framework
+- [RainbowKit](https://www.rainbowkit.com/) - wallet connect
+- [viem.sh](https://viem.sh/) - event listener + filter
+- [Wagmi](https://wagmi.sh/) - client side eth interaction
+- [Alchemy](https://alchemy.com/) - node interaction
+- [Supabase](https://supabase.com/) - postgres hosting
+- [Zod](https://zod.dev/) - schema validation
+- [Tailwind CSS](https://tailwindcss.com) - css framework
+- [Shadcn UI](https://ui.shadcn.com/) - UI framework
+- [Lucide](https://lucide.dev/) - icons
+- [Vercel KV + Redis](https://vercel.com/docs/storage/vercel-kv) - rate limitor
+- [Axiom](https://axiom.co/) - log collection + dashboard
+
 ## Getting Started Locally
 
+1. Clone this repository to your local machine.
+2. Copy `.env.example` to `.env` and fill in the required environment variables.
+3. Run `pnpm install` to install dependencies.
+4. Run `pnpm migrate` to push your schema to the database.
+5. Execute `pnpm dev` to start the development server and enjoy!
+
 ## Roadmap
+
+- [x] scaffolding everything and make initial deployment
+- [x] IPFS indexer
+- [x] skeleton platform (sorting, searching, etc)
+- [x] auth + web address verification
+- [x] integration
+- [x] queryselect the `<h1>` tag of the html and populate them
+- [ ] add search - TODO: needs to index title, which cant do in public gateway
+- [x] cron to insert logs
+- [x] fix that weird hydration error
+- [x] add sorting for price
+- [x] maybe a loading state for the title (not grabbing all the feed at once)
+
+Lots of the limitation is around:
+
+- public IPFS gateway - can't index titles at all, have to make it pesimistic from the client
+- wallet connect + auth - right now the auth is only client side. The next-auth doc for a full auth layer is outdated for app router, so it requires a complete remake for the tools.
 
 ## Contributing
 

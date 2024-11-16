@@ -34,10 +34,10 @@ export const curations = pgTable(
   (t) => {
     return {
       blockNumberIndex: index("block_number_index").on(t.blockNumber),
-      createdAtIndex: index('create_at_index').on(t.createdAt),
+      createdAtIndex: index("create_at_index").on(t.createdAt),
       txHashIndex: index("tx_hash_index").on(t.txHash),
-      amountIndex: index('amount_index').on(t.amount),
-      commentCountIndex: index('comment_count_index').on(t.commentCount)
+      amountIndex: index("amount_index").on(t.amount),
+      commentCountIndex: index("comment_count_index").on(t.commentCount),
     };
   }
 );
